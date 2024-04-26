@@ -7,6 +7,7 @@ import { Player } from "./components/Player";
 import { Mountain } from "./components/Mountain";
 import { House } from "./components/House";
 import { HouseBig } from "./components/HouseBig";
+import { Ship } from "./components/Ship";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Mountain position={[1, 0, -2]} />
         <House position={[3, 0, -2]} />
         <HouseBig position={[10, 0, -2]} />
+        <Ship position={[-1, 0, -2]} />
       </Physics>
     </Canvas>
   );
