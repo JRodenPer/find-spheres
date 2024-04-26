@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useBox } from "@react-three/cannon";
 import { Mesh, Texture } from "three";
-import * as textures from "../images/textures";
+import textures from "../images/textures";
 
 interface MountainProps {
   position: [number, number, number];

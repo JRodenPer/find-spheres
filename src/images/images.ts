@@ -1,2 +1,10 @@
 export { default as grassImg } from "./grass-namek.jpg";
 export { default as sandImg } from "./sand-namek.jpg";
+export { default as woodImg } from "./wood-namek.jpg";
+export { default as ball1Img } from "./ball1.jpg";
+export { default as ball2Img } from "./ball2.jpg";
+export { default as ball3Img } from "./ball3.jpg";
+export { default as ball4Img } from "./ball4.jpg";
+export { default as ball5Img } from "./ball5.jpg";
+export { default as ball6Img } from "./ball6.jpg";
+export { default as ball7Img } from "./ball7.jpg";
