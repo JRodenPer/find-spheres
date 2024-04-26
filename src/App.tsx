@@ -7,6 +7,9 @@ import { Player } from "./components/Player";
 import { Mountain } from "./components/Mountain";
 import { House } from "./components/House";
 import { HouseBig } from "./components/HouseBig";
+import { Ship } from "./components/Ship";
+import { ThreeNamek } from "./components/ThreeNamek";
+import { Ball } from "./components/ball";
 
 function App() {
   return (
@@ -32,6 +35,15 @@ function App() {
         <Mountain position={[1, 0, -2]} />
         <House position={[3, 0, -2]} />
         <HouseBig position={[10, 0, -2]} />
+        <Ship position={[-1, 0, -2]} />
+        <ThreeNamek position={[-2, 0, -2]} />
+        <Ball position={[1, -0.4, 1]} stars={1} />
+        <Ball position={[2, -0.4, 1]} stars={2} />
+        <Ball position={[3, -0.4, 1]} stars={3} />
+        <Ball position={[4, -0.4, 1]} stars={4} />
+        <Ball position={[5, -0.4, 1]} stars={5} />
+        <Ball position={[6, -0.4, 1]} stars={6} />
+        <Ball position={[7, -0.4, 1]} stars={7} />
       </Physics>
     </Canvas>
   );
