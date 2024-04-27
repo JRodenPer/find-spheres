@@ -4,12 +4,14 @@ import { Canvas } from "@react-three/fiber";
 import { Ground } from "./components/Ground";
 import { FirstPV } from "./components/FirstPV";
 import { Player } from "./components/Player";
-import { Mountain } from "./components/Mountain";
+import { Brick } from "./components/Brick";
 import { House } from "./components/House";
 import { HouseBig } from "./components/HouseBig";
 import { Ship } from "./components/Ship";
 import { ThreeNamek } from "./components/ThreeNamek";
 import { Ball } from "./components/ball";
+import { HouseMid } from "./components/HouseMid";
+import { Water } from "./components/Water";
 
 function App() {
   return (
@@ -32,9 +34,10 @@ function App() {
       <Physics>
         <Ground />
         <Player />
-        <Mountain position={[1, 0, -2]} />
+        <Brick position={[1, 0, -2]} />
         <House position={[3, 0, -2]} />
         <HouseBig position={[10, 0, -2]} />
+        <HouseMid position={[15, 0, -2]} />
         <Ship position={[-1, 0, -2]} />
         <ThreeNamek position={[-2, 0, -2]} />
         <Ball position={[1, -0.4, 1]} stars={1} />
