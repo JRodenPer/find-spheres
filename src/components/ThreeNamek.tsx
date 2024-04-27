@@ -16,12 +16,17 @@ export const ThreeNamek = ({ position }: HouseProps) => {
 
   return (
     <>
-      <mesh ref={ref as React.MutableRefObject<Mesh>}>
-        <Cylinder scale={[0.025, 1, 0.025]}>
+      <mesh ref={ref as React.MutableRefObject<Mesh>} castShadow receiveShadow>
+        <Cylinder scale={[0.025, 1, 0.025]} castShadow receiveShadow>
           <meshStandardMaterial attach="material" map={textures.woodTexture} />
         </Cylinder>
 
-        <Sphere position={[0, 0.5, 0]} scale={[0.15, 0.15, 0.15]}>
+        <Sphere
+          position={[0, 0.5, 0]}
+          scale={[0.15, 0.15, 0.15]}
+          castShadow
+          receiveShadow
+        >
           <meshStandardMaterial attach="material" map={textures.grassTexture} />
         </Sphere>
       </mesh>

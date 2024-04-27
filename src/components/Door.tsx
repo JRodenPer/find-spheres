@@ -27,8 +27,10 @@ export const Door = ({ position, scale = 1 }: DoorProps) => {
 
   return (
     <>
-      <mesh castShadow ref={ref as React.MutableRefObject<Mesh>}>
+      <mesh receiveShadow castShadow ref={ref as React.MutableRefObject<Mesh>}>
         <Cylinder
+          receiveShadow
+          castShadow
           scale={[0.25 * scale, 0.4 * scale, 0.5 * scale]}
           rotation={[Math.PI / 2, 0, 0]}
         >
@@ -41,6 +43,8 @@ export const Door = ({ position, scale = 1 }: DoorProps) => {
         </Cylinder>
 
         <Cylinder
+          receiveShadow
+          castShadow
           scale={[0.35 * scale, 0.3 * scale, 0.6 * scale]}
           rotation={[Math.PI / 2, 0, 0]}
         >
@@ -53,6 +57,8 @@ export const Door = ({ position, scale = 1 }: DoorProps) => {
         </Cylinder>
 
         <Sphere
+          receiveShadow
+          castShadow
           position={[0, 0.2 * scale, 0.1 * scale]}
           scale={[0.1, 0.1, 0.1]}
         >

@@ -11,25 +11,27 @@ import { Ship } from "./components/Ship";
 import { ThreeNamek } from "./components/ThreeNamek";
 import { Ball } from "./components/ball";
 import { HouseMid } from "./components/HouseMid";
-import { Water } from "./components/Water";
 
 function App() {
   return (
-    <Canvas>
-      <Sky sunPosition={[100, 100, 20]} />
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        position={[5, 5, 5]}
-        intensity={1}
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-      />
+    <Canvas shadows>
+      <Sky sunPosition={[0, 100, 100]} />
+      {<ambientLight intensity={0.5} />}
+      {
+        <directionalLight
+          position={[0, 10, 10]}
+          intensity={1}
+          castShadow
+          shadow-mapSize-width={9024}
+          shadow-mapSize-height={7024}
+          shadow-camera-far={50}
+          shadow-camera-left={-250}
+          shadow-camera-right={250}
+          shadow-camera-top={250}
+          shadow-camera-bottom={-250}
+          color="#ffffff"
+        />
+      }
       <FirstPV />
       <Physics>
         <Ground />
@@ -40,6 +42,9 @@ function App() {
         <HouseMid position={[15, 0, -2]} />
         <Ship position={[-1, 0, -2]} />
         <ThreeNamek position={[-2, 0, -2]} />
+        <HouseBig position={[-20, 0, -20]} />
+        <HouseBig position={[-200, 0, 0]} />
+        <HouseBig position={[-100, 0, 0]} />
         <Ball position={[1, -0.4, 1]} stars={1} />
         <Ball position={[2, -0.4, 1]} stars={2} />
         <Ball position={[3, -0.4, 1]} stars={3} />
