@@ -12,6 +12,7 @@ export const Ball = ({ position, stars }: BallProps) => {
   const [ref] = useBox(() => ({
     type: "Static",
     position,
+    scale: [0.1, 0.1, 0.1],
   }));
 
   const [texture, setTexture] = useState(textures.ball1Texture);

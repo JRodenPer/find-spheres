@@ -3,11 +3,11 @@ import { useBox } from "@react-three/cannon";
 import { Mesh, Texture } from "three";
 import textures from "../images/textures";
 
-interface MountainProps {
+interface BrickProps {
   position: [number, number, number];
 }
 
-export const Mountain = ({ position }: MountainProps) => {
+export const Brick = ({ position }: BrickProps) => {
   const [ref] = useBox(() => ({
     type: "Static",
     position,
@@ -32,12 +32,7 @@ export const Mountain = ({ position }: MountainProps) => {
 
       <mesh castShadow ref={refTop as React.MutableRefObject<Mesh>}>
         <boxGeometry args={[1, 0.05, 1]} attach="geometry" />
-        <meshStandardMaterial
-          map={textures.grassTexture}
-          attach="material"
-          metalness={0}
-          roughness={0}
-        />
+        <meshStandardMaterial map={textures.grassTexture} attach="material" />
       </mesh>
     </>
   );

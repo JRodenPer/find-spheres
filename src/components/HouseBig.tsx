@@ -1,6 +1,7 @@
 import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Cone, Sphere } from "@react-three/drei";
+import { Door } from "./Door";
 
 interface HouseProps {
   position: [number, number, number];
@@ -138,6 +139,43 @@ export const HouseBig = ({ position }: HouseProps) => {
             roughness={0}
           />
         </Sphere>
+
+        <Sphere position={[-3.4, 0, -0.4]} scale={[0.15, 0.15, 0.15]}>
+          <meshStandardMaterial
+            attach="material"
+            color={"cyan"}
+            metalness={0}
+            roughness={0}
+          />
+        </Sphere>
+
+        <Sphere position={[3.4, 0, 0.4]} scale={[0.15, 0.15, 0.15]}>
+          <meshStandardMaterial
+            attach="material"
+            color={"cyan"}
+            metalness={0}
+            roughness={0}
+          />
+        </Sphere>
+
+        <Sphere position={[3.4, 0, -0.4]} scale={[0.15, 0.15, 0.15]}>
+          <meshStandardMaterial
+            attach="material"
+            color={"cyan"}
+            metalness={0}
+            roughness={0}
+          />
+        </Sphere>
+
+        <Sphere position={[-3.4, 0, 0.4]} scale={[0.15, 0.15, 0.15]}>
+          <meshStandardMaterial
+            attach="material"
+            color={"cyan"}
+            metalness={0}
+            roughness={0}
+          />
+        </Sphere>
+
         <Cone
           position={[0.8, 2.4, 0.4]}
           scale={[0.25, 1, 0.25]}
@@ -161,7 +199,10 @@ export const HouseBig = ({ position }: HouseProps) => {
             metalness={0}
             roughness={0}
           />
+          w
         </Cone>
+
+        <Door position={[0, -0.2, 1.9]} scale={0.9} />
       </mesh>
     </>
   );
