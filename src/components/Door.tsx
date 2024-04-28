@@ -5,29 +5,35 @@ import { Cone, Cylinder, Sphere } from "@react-three/drei";
 interface DoorProps {
   position: [number, number, number];
   scale: number;
+  window?: boolean;
+  rotation?: [number, number, number];
+  color?: string;
+  colorBorder?: string;
 }
 
-export const Door = ({ position, scale = 1 }: DoorProps) => {
+export const Door = ({
+  position,
+  scale = 1,
+  window = true,
+  rotation = [0, 0, 0],
+  color = "#A9A9A9",
+  colorBorder = "white",
+}: DoorProps) => {
   const [ref] = useSphere(() => ({
     type: "Static",
     position,
     args: [1],
+    rotation,
   }));
-  /*<Sphere
-          args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
-          scale={[height + 0.2, height + 0.3, height]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"#A9A9A9"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>*/
 
   return (
     <>
-      <mesh receiveShadow castShadow ref={ref as React.MutableRefObject<Mesh>}>
+      <mesh
+        receiveShadow
+        castShadow
+        ref={ref as React.MutableRefObject<Mesh>}
+        rotation={rotation}
+      >
         <Cylinder
           receiveShadow
           castShadow
@@ -36,7 +42,7 @@ export const Door = ({ position, scale = 1 }: DoorProps) => {
         >
           <meshStandardMaterial
             attach="material"
-            color={"#A9A9A9"}
+            color={color}
             metalness={0}
             roughness={0}
           />
@@ -50,25 +56,27 @@ export const Door = ({ position, scale = 1 }: DoorProps) => {
         >
           <meshStandardMaterial
             attach="material"
-            color={"white"}
+            color={colorBorder}
             metalness={0}
             roughness={0}
           />
         </Cylinder>
 
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0, 0.2 * scale, 0.1 * scale]}
-          scale={[0.1, 0.1, 0.1]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
+        {window ? (
+          <Sphere
+            receiveShadow
+            castShadow
+            position={[0, 0.2 * scale, 0.1 * scale]}
+            scale={[0.1, 0.1, 0.1]}
+          >
+            <meshStandardMaterial
+              attach="material"
+              color={"cyan"}
+              metalness={0}
+              roughness={0}
+            />
+          </Sphere>
+        ) : null}
       </mesh>
     </>
   );

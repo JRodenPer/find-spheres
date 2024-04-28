@@ -11,6 +11,8 @@ import { Ship } from "./components/Ship";
 import { ThreeNamek } from "./components/ThreeNamek";
 import { Ball } from "./components/ball";
 import { HouseMid } from "./components/HouseMid";
+import { ShipCapsule } from "./components/ShipCapsule";
+import { ShipFreezer } from "./components/ShipFreezer";
 
 function App() {
   return (
@@ -22,8 +24,8 @@ function App() {
           position={[0, 10, 10]}
           intensity={1}
           castShadow
-          shadow-mapSize-width={9024}
-          shadow-mapSize-height={7024}
+          shadow-mapSize-width={9216}
+          shadow-mapSize-height={7189}
           shadow-camera-far={50}
           shadow-camera-left={-250}
           shadow-camera-right={250}
@@ -36,11 +38,12 @@ function App() {
       <Physics>
         <Ground />
         <Player />
-        <Brick position={[1, 0, -2]} />
         <House position={[3, 0, -2]} />
         <HouseBig position={[10, 0, -2]} />
         <HouseMid position={[15, 0, -2]} />
         <Ship position={[-1, 0, -2]} />
+        <ShipCapsule position={[-10, 0.2, -4]} />
+        <ShipFreezer position={[-1, 0.2, -10]} />
         <ThreeNamek position={[-2, 0, -2]} />
         <HouseBig position={[-20, 0, -20]} />
         <HouseBig position={[-200, 0, 0]} />
