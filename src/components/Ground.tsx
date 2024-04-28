@@ -32,19 +32,16 @@ export function Ground() {
 
   // Generar la textura a partir del mapa de ruido
   const texture = generateTextureFromNoiseMap(noiseMap);
-  //setTexture(textureCurrent);
-  //}, []);
-
-  //textures.groundTexture.repeat.set(SIZE_X, SIZE_Y);
 
   return (
     <>
-      <mesh receiveShadow ref={ref as React.MutableRefObject<Mesh>}>
-        <Circle args={[SIZE_X, 64]} position={[0, 0, 0]}>
+      {
+        <mesh receiveShadow ref={ref as React.MutableRefObject<Mesh>}>
           <meshStandardMaterial attach="material" map={texture} />
           <circleGeometry args={[SIZE_X, 64]} attach="geometry" />
-        </Circle>
-      </mesh>
+        </mesh>
+      }
+
       <Finisterre />
     </>
   );

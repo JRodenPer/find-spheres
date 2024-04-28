@@ -2,11 +2,11 @@ import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Cone, Sphere } from "@react-three/drei";
 
-interface HouseProps {
+interface ShipProps {
   position: [number, number, number];
 }
 
-export const Ship = ({ position }: HouseProps) => {
+export const Ship = ({ position }: ShipProps) => {
   const [ref] = useSphere(() => ({
     type: "Static",
     position,
@@ -15,8 +15,10 @@ export const Ship = ({ position }: HouseProps) => {
 
   return (
     <>
-      <mesh castShadow ref={ref as React.MutableRefObject<Mesh>}>
+      <mesh receiveShadow castShadow ref={ref as React.MutableRefObject<Mesh>}>
         <Sphere
+          receiveShadow
+          castShadow
           args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
           scale={[0.4, 0.4, 0.6]}
         >
@@ -29,6 +31,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Sphere>
 
         <Sphere
+          receiveShadow
+          castShadow
           args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
           scale={[0.2, 0.2, 0.4]}
           position={[0, 0.3, 0]}
@@ -41,7 +45,12 @@ export const Ship = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere position={[0, 0, 0.5]} scale={[0.15, 0.15, 0.15]}>
+        <Sphere
+          receiveShadow
+          castShadow
+          position={[0, 0, 0.5]}
+          scale={[0.15, 0.15, 0.15]}
+        >
           <meshStandardMaterial
             attach="material"
             color={"cyan"}
@@ -50,7 +59,12 @@ export const Ship = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere position={[-0.15, -0.1, 0.45]} scale={[0.1, 0.1, 0.1]}>
+        <Sphere
+          receiveShadow
+          castShadow
+          position={[-0.15, -0.1, 0.45]}
+          scale={[0.1, 0.1, 0.1]}
+        >
           <meshStandardMaterial
             attach="material"
             color={"cyan"}
@@ -59,7 +73,12 @@ export const Ship = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere position={[0.15, -0.1, 0.45]} scale={[0.1, 0.1, 0.1]}>
+        <Sphere
+          receiveShadow
+          castShadow
+          position={[0.15, -0.1, 0.45]}
+          scale={[0.1, 0.1, 0.1]}
+        >
           <meshStandardMaterial
             attach="material"
             color={"cyan"}
@@ -69,6 +88,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Sphere>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[0.3, -0.35, 0.3]}
           scale={[0.05, 0.5, 0.05]}
           rotation={[0, 0, (9 * Math.PI) / 8]}
@@ -82,6 +103,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[-0.3, -0.35, 0.3]}
           scale={[0.05, 0.5, 0.05]}
           rotation={[0, 0, (7 * Math.PI) / 8]}
@@ -95,6 +118,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[0.3, -0.35, -0.3]}
           scale={[0.05, 0.5, 0.05]}
           rotation={[0, 0, (9 * Math.PI) / 8]}
@@ -108,6 +133,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[-0.3, -0.35, -0.3]}
           scale={[0.05, 0.5, 0.05]}
           rotation={[0, 0, (7 * Math.PI) / 8]}
@@ -121,6 +148,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[0.3, 0, 0.5]}
           scale={[0.05, 0.3, 0.05]}
           rotation={[0, 0, -Math.PI / 2]}
@@ -134,6 +163,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[-0.3, 0, 0.5]}
           scale={[0.05, 0.3, 0.05]}
           rotation={[0, 0, Math.PI / 2]}
@@ -147,6 +178,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[0.3, 0.25, 0.5]}
           scale={[0.05, 0.5, 0.05]}
           rotation={[0, 0, -Math.PI / 4]}
@@ -160,6 +193,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[-0.3, 0.25, 0.5]}
           scale={[0.05, 0.5, 0.05]}
           rotation={[0, 0, Math.PI / 4]}
@@ -173,6 +208,8 @@ export const Ship = ({ position }: HouseProps) => {
         </Cone>
 
         <Cone
+          receiveShadow
+          castShadow
           position={[0, 0.25, -0.6]}
           scale={[0.05, 0.4, 0.05]}
           rotation={[-Math.PI / 4, 0, 0]}

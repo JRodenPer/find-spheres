@@ -9,6 +9,8 @@ import {
   ball5Img,
   ball6Img,
   ball7Img,
+  capsuleImg,
+  shipFreezerImg,
 } from "./images";
 import { NearestFilter, RepeatWrapping, Texture, TextureLoader } from "three";
 
@@ -25,6 +27,7 @@ interface ITextures {
   ball5Texture: Texture;
   ball6Texture: Texture;
   ball7Texture: Texture;
+  capsuleTexture: Texture;
 }
 
 const groundTexture = new TextureLoader().load(grassImg);
@@ -40,6 +43,9 @@ const ball4Texture = new TextureLoader().load(ball4Img);
 const ball5Texture = new TextureLoader().load(ball5Img);
 const ball6Texture = new TextureLoader().load(ball6Img);
 const ball7Texture = new TextureLoader().load(ball7Img);
+
+const capsuleTexture = new TextureLoader().load(capsuleImg);
+const shipFreezerTexture = new TextureLoader().load(shipFreezerImg);
 
 groundTexture.wrapS = RepeatWrapping;
 groundTexture.wrapT = RepeatWrapping;
@@ -57,6 +63,9 @@ ball5Texture.magFilter = NearestFilter;
 ball6Texture.magFilter = NearestFilter;
 ball7Texture.magFilter = NearestFilter;
 
+capsuleTexture.magFilter = NearestFilter;
+shipFreezerTexture.magFilter = NearestFilter;
+
 const textures: ITextures = {
   groundTexture,
   grassTexture,
@@ -69,6 +78,8 @@ const textures: ITextures = {
   ball5Texture,
   ball6Texture,
   ball7Texture,
+  capsuleTexture,
+  shipFreezerTexture,
 };
 
 export default textures;

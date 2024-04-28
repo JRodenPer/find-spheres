@@ -8,3 +8,5 @@ export { default as ball4Img } from "./ball4.jpg";
 export { default as ball5Img } from "./ball5.jpg";
 export { default as ball6Img } from "./ball6.jpg";
 export { default as ball7Img } from "./ball7.jpg";
+export { default as capsuleImg } from "./capsule.jpg";
+export { default as shipFreezerImg } from "./freezerShip.jpg";

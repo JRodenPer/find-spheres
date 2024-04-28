@@ -16,8 +16,10 @@ export const House = ({ position }: HouseProps) => {
 
   return (
     <>
-      <mesh castShadow ref={ref as React.MutableRefObject<Mesh>}>
+      <mesh receiveShadow castShadow ref={ref as React.MutableRefObject<Mesh>}>
         <Sphere
+          receiveShadow
+          castShadow
           args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
           scale={[1, 1, 1.5]}
         >
@@ -29,7 +31,12 @@ export const House = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere position={[-0.55, 0.3, 1]} scale={[0.15, 0.15, 0.15]}>
+        <Sphere
+          receiveShadow
+          castShadow
+          position={[-0.55, 0.3, 1]}
+          scale={[0.15, 0.15, 0.15]}
+        >
           <meshStandardMaterial
             attach="material"
             color={"cyan"}
@@ -38,7 +45,12 @@ export const House = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere position={[0, 0.65, 1]} scale={[0.15, 0.15, 0.15]}>
+        <Sphere
+          receiveShadow
+          castShadow
+          position={[0, 0.65, 1]}
+          scale={[0.15, 0.15, 0.15]}
+        >
           <meshStandardMaterial
             attach="material"
             color={"cyan"}
@@ -47,7 +59,12 @@ export const House = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere position={[0.55, 0.3, 1]} scale={[0.15, 0.15, 0.15]}>
+        <Sphere
+          receiveShadow
+          castShadow
+          position={[0.55, 0.3, 1]}
+          scale={[0.15, 0.15, 0.15]}
+        >
           <meshStandardMaterial
             attach="material"
             color={"cyan"}
@@ -56,6 +73,8 @@ export const House = ({ position }: HouseProps) => {
           />
         </Sphere>
         <Cone
+          receiveShadow
+          castShadow
           position={[0.8, 1, 0.4]}
           scale={[0.15, 1, 0.15]}
           rotation={[0, 0, -Math.PI / 4]}
@@ -67,7 +86,12 @@ export const House = ({ position }: HouseProps) => {
             roughness={0}
           />
         </Cone>
-        <Cone position={[0, 1, 0.4]} scale={[0.15, 1, 0.15]}>
+        <Cone
+          receiveShadow
+          castShadow
+          position={[0, 1, 0.4]}
+          scale={[0.15, 1, 0.15]}
+        >
           <meshStandardMaterial
             attach="material"
             color={"white"}
@@ -76,6 +100,8 @@ export const House = ({ position }: HouseProps) => {
           />
         </Cone>
         <Cone
+          receiveShadow
+          castShadow
           position={[-0.8, 1, 0.4]}
           scale={[0.15, 1, 0.15]}
           rotation={[0, 0, Math.PI / 4]}

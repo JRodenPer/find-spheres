@@ -1,13 +1,15 @@
 import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
-import { Cone, Sphere } from "@react-three/drei";
+import { Cone, Cylinder, Sphere } from "@react-three/drei";
+import textures from "../images/textures";
+import { ShipCapsuleSupport } from "./ShipCapsuleSupport";
 import { Door } from "./Door";
 
-interface HouseProps {
+interface ShipProps {
   position: [number, number, number];
 }
 
-export const HouseMid = ({ position }: HouseProps) => {
+export const ShipCapsule = ({ position }: ShipProps) => {
   const [ref] = useSphere(() => ({
     type: "Static",
     position,
@@ -16,26 +18,70 @@ export const HouseMid = ({ position }: HouseProps) => {
 
   return (
     <>
-      <mesh receiveShadow castShadow ref={ref as React.MutableRefObject<Mesh>}>
+      <mesh castShadow ref={ref as React.MutableRefObject<Mesh>}>
         <Sphere
           receiveShadow
           castShadow
           args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
-          scale={[1, 1, 2]}
+          scale={[0.6, 0.6, 0.6]}
+          rotation={[0, Math.PI / 2, 0]}
         >
           <meshStandardMaterial
             attach="material"
-            color={"white"}
+            map={textures.capsuleTexture}
             metalness={0}
             roughness={0}
           />
         </Sphere>
 
+        <Cylinder
+          receiveShadow
+          castShadow
+          scale={[0.6, 0.01, 0.1]}
+          rotation={[0, Math.PI / 4, 0]}
+          position={[0, -0.5, 0]}
+        >
+          <meshStandardMaterial
+            attach="material"
+            color={"#F6F6F6"}
+            metalness={0}
+            roughness={0}
+          />
+        </Cylinder>
+
+        <Cylinder
+          receiveShadow
+          castShadow
+          scale={[0.6, 0.01, 0.1]}
+          rotation={[0, -Math.PI / 4, 0]}
+          position={[0, -0.5, 0]}
+        >
+          <meshStandardMaterial
+            attach="material"
+            color={"#F6F6F6"}
+            metalness={0}
+            roughness={0}
+          />
+        </Cylinder>
+        <ShipCapsuleSupport position={[-0.4, -0.6, -0.4]} />
+        <ShipCapsuleSupport position={[-0.4, -0.6, 0.4]} />
+        <ShipCapsuleSupport position={[0.4, -0.6, 0.4]} />
+        <ShipCapsuleSupport position={[0.4, -0.6, -0.4]} />
+
+        <Door
+          position={[0.0, -0.15, 0.51]}
+          scale={0.45}
+          window={false}
+          rotation={[Math.PI / 8, 0, 0]}
+          color={"#F6F6F6"}
+          colorBorder={"#000850"}
+        />
+
         <Sphere
           receiveShadow
           castShadow
-          position={[-0.75, 0.3, 1]}
-          scale={[0.15, 0.15, 0.15]}
+          position={[-0.5, -0.25, 0]}
+          scale={[0.1, 0.1, 0.1]}
         >
           <meshStandardMaterial
             attach="material"
@@ -48,8 +94,8 @@ export const HouseMid = ({ position }: HouseProps) => {
         <Sphere
           receiveShadow
           castShadow
-          position={[0.75, 0.3, 1]}
-          scale={[0.15, 0.15, 0.15]}
+          position={[-0.3, -0.25, 0.4]}
+          scale={[0.1, 0.1, 0.1]}
         >
           <meshStandardMaterial
             attach="material"
@@ -62,8 +108,8 @@ export const HouseMid = ({ position }: HouseProps) => {
         <Sphere
           receiveShadow
           castShadow
-          position={[0.85, 0.3, 0.5]}
-          scale={[0.15, 0.15, 0.15]}
+          position={[-0.3, -0.25, -0.4]}
+          scale={[0.1, 0.1, 0.1]}
         >
           <meshStandardMaterial
             attach="material"
@@ -76,8 +122,8 @@ export const HouseMid = ({ position }: HouseProps) => {
         <Sphere
           receiveShadow
           castShadow
-          position={[-0.85, 0.3, 0.5]}
-          scale={[0.15, 0.15, 0.15]}
+          position={[0.5, -0.25, 0]}
+          scale={[0.1, 0.1, 0.1]}
         >
           <meshStandardMaterial
             attach="material"
@@ -90,13 +136,12 @@ export const HouseMid = ({ position }: HouseProps) => {
         <Sphere
           receiveShadow
           castShadow
-          position={[0, 0.9, 1]}
-          args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
-          scale={[0.5, 0.7, 0.5]}
+          position={[0.3, -0.25, 0.4]}
+          scale={[0.1, 0.1, 0.1]}
         >
           <meshStandardMaterial
             attach="material"
-            color={"white"}
+            color={"cyan"}
             metalness={0}
             roughness={0}
           />
@@ -105,49 +150,16 @@ export const HouseMid = ({ position }: HouseProps) => {
         <Sphere
           receiveShadow
           castShadow
-          position={[0, 1.3, 1.2]}
-          args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
-          scale={[0.25, 0.25, 0.25]}
+          position={[0.3, -0.25, -0.4]}
+          scale={[0.1, 0.1, 0.1]}
         >
           <meshStandardMaterial
             attach="material"
-            color={"#008B8B"}
+            color={"cyan"}
             metalness={0}
             roughness={0}
           />
         </Sphere>
-
-        <Door position={[0, -0.2, 1.9]} scale={0.7} />
-
-        <Cone
-          receiveShadow
-          castShadow
-          position={[0.4, 1.5, 1]}
-          scale={[0.15, 1, 0.15]}
-          rotation={[0, 0, -Math.PI / 4]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"white"}
-            metalness={0}
-            roughness={0}
-          />
-        </Cone>
-
-        <Cone
-          receiveShadow
-          castShadow
-          position={[-0.4, 1.5, 1]}
-          scale={[0.15, 1, 0.15]}
-          rotation={[0, 0, Math.PI / 4]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"white"}
-            metalness={0}
-            roughness={0}
-          />
-        </Cone>
       </mesh>
     </>
   );
