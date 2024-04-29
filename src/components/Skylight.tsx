@@ -1,5 +1,3 @@
-import { useSphere } from "@react-three/cannon";
-import { Mesh } from "three";
 import { Sphere } from "@react-three/drei";
 
 interface SkylightProps {

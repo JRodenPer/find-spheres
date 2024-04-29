@@ -3,6 +3,7 @@ import { Mesh } from "three";
 import { Cone, Sphere } from "@react-three/drei";
 import { Door } from "./Door";
 import { Skylight } from "./Skylight";
+import { ConeDecoration } from "./ConeDecoration";
 
 const POSITIONS: [number, number, number][] = [
   [-0.75, 0.3, 1],
@@ -68,35 +69,17 @@ export const HouseMid = ({ position }: HouseProps) => {
 
         <Door position={[0, -0.2, 1.9]} scale={0.7} />
 
-        <Cone
-          receiveShadow
-          castShadow
+        <ConeDecoration
           position={[0.4, 1.5, 1]}
           scale={[0.15, 1, 0.15]}
           rotation={[0, 0, -Math.PI / 4]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"white"}
-            metalness={0}
-            roughness={0}
-          />
-        </Cone>
+        />
 
-        <Cone
-          receiveShadow
-          castShadow
+        <ConeDecoration
           position={[-0.4, 1.5, 1]}
           scale={[0.15, 1, 0.15]}
           rotation={[0, 0, Math.PI / 4]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"white"}
-            metalness={0}
-            roughness={0}
-          />
-        </Cone>
+        />
       </mesh>
     </>
   );
