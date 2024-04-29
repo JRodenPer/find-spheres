@@ -2,6 +2,7 @@ import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Box, Cone, Cylinder, Sphere } from "@react-three/drei";
 import textures from "../images/textures";
+import { Skylight } from "./Skylight";
 
 interface ShipProps {
   position: [number, number, number];
@@ -58,19 +59,7 @@ export const ShipFreezerSupport = ({
             />
           </Cone>
 
-          <Sphere
-            receiveShadow
-            castShadow
-            position={[-4.85, -0.02, 0]}
-            scale={[0.2, 0.2, 0.3]}
-          >
-            <meshStandardMaterial
-              attach="material"
-              color={"cyan"}
-              metalness={0}
-              roughness={0}
-            />
-          </Sphere>
+          <Skylight position={[-4.85, -0.02, 0]} scale={[0.2, 0.2, 0.3]} />
 
           {separator ? (
             <Sphere

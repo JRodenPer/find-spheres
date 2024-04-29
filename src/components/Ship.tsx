@@ -1,6 +1,19 @@
 import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Cone, Sphere } from "@react-three/drei";
+import { Skylight } from "./Skylight";
+
+const POSITIONS: [number, number, number][] = [
+  [0, 0, 0.5],
+  [-0.15, -0.1, 0.45],
+  [0.15, -0.1, 0.45],
+];
+
+const SCALE: [number, number, number][] = [
+  [0.15, 0.15, 0.15],
+  [0.1, 0.1, 0.1],
+  [0.1, 0.1, 0.1],
+];
 
 interface ShipProps {
   position: [number, number, number];
@@ -45,47 +58,9 @@ export const Ship = ({ position }: ShipProps) => {
           />
         </Sphere>
 
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0, 0, 0.5]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-0.15, -0.1, 0.45]}
-          scale={[0.1, 0.1, 0.1]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0.15, -0.1, 0.45]}
-          scale={[0.1, 0.1, 0.1]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
+        {POSITIONS.map((pos, index) => (
+          <Skylight key={index} position={pos} scale={SCALE[index]} />
+        ))}
 
         <Cone
           receiveShadow

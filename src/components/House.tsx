@@ -2,6 +2,15 @@ import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Cone, Sphere } from "@react-three/drei";
 import { Door } from "./Door";
+import { Skylight } from "./Skylight";
+
+const POSITIONS: [number, number, number][] = [
+  [-0.55, 0.3, 1],
+  [0, 0.65, 1],
+  [0.55, 0.3, 1],
+];
+
+const SCALE: [number, number, number] = [0.15, 0.15, 0.15];
 
 interface HouseProps {
   position: [number, number, number];
@@ -31,47 +40,10 @@ export const House = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-0.55, 0.3, 1]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
+        {POSITIONS.map((pos, index) => (
+          <Skylight key={index} position={pos} scale={SCALE} />
+        ))}
 
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0, 0.65, 1]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0.55, 0.3, 1]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
         <Cone
           receiveShadow
           castShadow

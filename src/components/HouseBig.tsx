@@ -2,7 +2,23 @@ import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Cone, Sphere } from "@react-three/drei";
 import { Door } from "./Door";
+import { Skylight } from "./Skylight";
 
+const POSITIONS: [number, number, number][] = [
+  [0, 0.65, 1.85],
+  [-0.6, 0.45, 1.8],
+  [0.6, 0.45, 1.8],
+  [1.6, 0.45, 1.6],
+  [-1.6, 0.45, 1.6],
+  [0.8, 1.75, 0.7],
+  [-0.8, 1.75, 0.7],
+  [-3.4, 0, -0.4],
+  [3.4, 0, 0.4],
+  [3.4, 0, -0.4],
+  [-3.4, 0, 0.4],
+];
+
+const SCALE: [number, number, number] = [0.15, 0.15, 0.15];
 interface HouseProps {
   position: [number, number, number];
 }
@@ -30,7 +46,6 @@ export const HouseBig = ({ position }: HouseProps) => {
             roughness={0}
           />
         </Sphere>
-
         <Sphere
           receiveShadow
           castShadow
@@ -45,7 +60,6 @@ export const HouseBig = ({ position }: HouseProps) => {
             roughness={0}
           />
         </Sphere>
-
         <Sphere
           receiveShadow
           castShadow
@@ -60,7 +74,6 @@ export const HouseBig = ({ position }: HouseProps) => {
             roughness={0}
           />
         </Sphere>
-
         <Sphere
           receiveShadow
           castShadow
@@ -76,174 +89,15 @@ export const HouseBig = ({ position }: HouseProps) => {
           />
         </Sphere>
 
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0, 0.65, 1.85]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
+        {POSITIONS.map((pos, index) => (
+          <Skylight key={index} position={pos} scale={SCALE} />
+        ))}
 
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-0.6, 0.45, 1.8]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0.6, 0.45, 1.8]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[1.6, 0.45, 1.6]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-1.6, 0.45, 1.6]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
+        <Skylight
           position={[0, 1.75, 1.1]}
           scale={[0.25, 0.25, 0.25]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"#008B8B"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0.8, 1.75, 0.7]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-0.8, 1.75, 0.7]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-3.4, 0, -0.4]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[3.4, 0, 0.4]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[3.4, 0, -0.4]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-3.4, 0, 0.4]}
-          scale={[0.15, 0.15, 0.15]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
+          color={"#008B8B"}
+        />
         <Cone
           receiveShadow
           castShadow
@@ -273,7 +127,6 @@ export const HouseBig = ({ position }: HouseProps) => {
           />
           w
         </Cone>
-
         <Door position={[0, -0.2, 1.9]} scale={0.9} />
       </mesh>
     </>

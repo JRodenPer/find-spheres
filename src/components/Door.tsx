@@ -1,6 +1,7 @@
 import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Cone, Cylinder, Sphere } from "@react-three/drei";
+import { Skylight } from "./Skylight";
 
 interface DoorProps {
   position: [number, number, number];
@@ -63,19 +64,10 @@ export const Door = ({
         </Cylinder>
 
         {window ? (
-          <Sphere
-            receiveShadow
-            castShadow
+          <Skylight
             position={[0, 0.2 * scale, 0.1 * scale]}
             scale={[0.1, 0.1, 0.1]}
-          >
-            <meshStandardMaterial
-              attach="material"
-              color={"cyan"}
-              metalness={0}
-              roughness={0}
-            />
-          </Sphere>
+          />
         ) : null}
       </mesh>
     </>

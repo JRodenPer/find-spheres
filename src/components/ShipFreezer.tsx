@@ -5,6 +5,7 @@ import textures from "../images/textures";
 import { ShipCapsuleSupport } from "./ShipCapsuleSupport";
 import { Door } from "./Door";
 import { ShipFreezerSupport } from "./ShipFreezerSupport";
+import { Skylight } from "./Skylight";
 
 interface ShipProps {
   position: [number, number, number];
@@ -70,47 +71,13 @@ export const ShipFreezer = ({ position }: ShipProps) => {
           rotation={[0, -(5 * Math.PI) / 6, 0]}
         />
 
-        <Sphere
-          receiveShadow
-          castShadow
+        <Skylight
           position={[0, 0.25, 3.9]}
           scale={[0.9, 0.5, 0.9]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"purple"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[-0.7, 0.0, 4.7]}
-          scale={[0.2, 0.2, 0.3]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
-
-        <Sphere
-          receiveShadow
-          castShadow
-          position={[0.7, 0.0, 4.7]}
-          scale={[0.2, 0.2, 0.3]}
-        >
-          <meshStandardMaterial
-            attach="material"
-            color={"cyan"}
-            metalness={0}
-            roughness={0}
-          />
-        </Sphere>
+          color={"purple"}
+        />
+        <Skylight position={[-0.7, 0.0, 4.7]} scale={[0.2, 0.2, 0.3]} />
+        <Skylight position={[0.7, 0.0, 4.7]} scale={[0.2, 0.2, 0.3]} />
       </mesh>
     </>
   );
