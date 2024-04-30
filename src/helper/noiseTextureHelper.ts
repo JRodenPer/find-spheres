@@ -41,9 +41,11 @@ function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
-// Función para generar una textura a partir del mapa de ruido
 export function generateTextureFromNoiseMap(
-  noiseMap: number[][]
+  noiseMap: number[][],
+  color1: string = "green",
+  color2: string = "yellow",
+  seamLess: boolean = false
 ): THREE.Texture {
   const canvas = document.createElement("canvas");
   canvas.width = noiseMap[0].length;
@@ -59,8 +61,8 @@ export function generateTextureFromNoiseMap(
       const noiseValue = noiseMap[y][x];
 
       const color = mixColors(
-        new THREE.Color("green"),
-        new THREE.Color("yellow"),
+        new THREE.Color(color1),
+        new THREE.Color(color2),
         Math.pow((noiseValue + 1) / 2, 3)
       );
 
@@ -77,6 +79,30 @@ export function generateTextureFromNoiseMap(
     }
   }
 
+  if (seamLess) {
+    // Repetir el primer píxel en el último borde derecho y el primer borde inferior
+    for (let y = 0; y < canvas.height - 1; y++) {
+      const index = y * canvas.width * 4;
+      data[index + 4 * (canvas.width - 1)] = data[index]; // Repetir el primer píxel en el último borde derecho
+    }
+    for (let x = 0; x < canvas.width; x++) {
+      const index = (canvas.height - 1) * canvas.width * 4;
+      const sourceIndex = x * 4;
+      data[index + sourceIndex] = data[sourceIndex]; // Repetir el primer borde inferior
+      data[index + sourceIndex + 1] = data[sourceIndex + 1];
+      data[index + sourceIndex + 2] = data[sourceIndex + 2];
+      data[index + sourceIndex + 3] = data[sourceIndex + 3];
+    }
+
+    for (let y = 0; y < canvas.height; y++) {
+      const index = (y * canvas.width + (canvas.width - 1)) * 4;
+      const sourceIndex = y * canvas.width * 4;
+      data[index] = data[sourceIndex]; // Repetir la primera columna en la última columna
+      data[index + 1] = data[sourceIndex + 1];
+      data[index + 2] = data[sourceIndex + 2];
+      data[index + 3] = data[sourceIndex + 3];
+    }
+  }
   context.putImageData(imageData, 0, 0);
 
   const texture = new THREE.Texture(canvas);

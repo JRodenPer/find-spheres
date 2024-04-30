@@ -21,9 +21,12 @@ interface ShipProps {
 }
 
 export const Ship = ({ position }: ShipProps) => {
+  const halfHeight = 0.5;
+
   const [ref] = useSphere(() => ({
+    mass: 1,
     type: "Static",
-    position,
+    position: [position[0], position[1] + halfHeight, position[2]],
     args: [1],
   }));
 

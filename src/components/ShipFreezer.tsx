@@ -12,9 +12,16 @@ interface ShipProps {
 }
 
 export const ShipFreezer = ({ position }: ShipProps) => {
+  const shipCapsuleSupportHeight = 0.4;
+  const halfHeight = 0.5;
+
   const [ref] = useBox(() => ({
     type: "Static",
-    position,
+    position: [
+      position[0],
+      position[1] + halfHeight + shipCapsuleSupportHeight / 2,
+      position[2],
+    ],
     scale: [10, 3, 10],
   }));
 

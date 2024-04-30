@@ -19,9 +19,10 @@ interface HouseProps {
 }
 
 export const HouseMid = ({ position }: HouseProps) => {
+  const halfHeight = 0.5;
   const [ref] = useSphere(() => ({
     type: "Static",
-    position,
+    position: [position[0], position[1] + halfHeight, position[2]],
     args: [1],
   }));
 
