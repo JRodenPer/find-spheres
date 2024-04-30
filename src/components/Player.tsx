@@ -6,7 +6,7 @@ import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
 import { useStore } from "../hooks/useStore";
 
-const CHARACTER_SPEED = 4;
+const CHARACTER_SPEED = 40;
 const CHARACTER_JUMP_FORCE = 4;
 
 export const Player = () => {
@@ -40,13 +40,17 @@ export const Player = () => {
   }, [api.velocity]);
 
   useFrame(() => {
-    camera.position.copy(
+    /*camera.position.copy(
       new Vector3(
         pos.current[0], // x
         pos.current[1], // y
         pos.current[2] // z
-      )
-    );
+      )w
+    );*/
+
+    camera.position.x = pos.current[0];
+    camera.position.y = pos.current[1];
+    camera.position.z = pos.current[2];
 
     const direction = new Vector3();
 
@@ -68,6 +72,8 @@ export const Player = () => {
       .multiplyScalar(CHARACTER_SPEED) // walk: 2, run: 5
       .applyEuler(camera.rotation);
 
+    //camera.position.add(direction);
+
     api.velocity.set(
       direction.x,
       vel.current[1], // ???? saltar.
@@ -83,9 +89,45 @@ export const Player = () => {
       pos.current[1],
       pos.current[2],
     ];
-    /*if (moveBackward || moveForward || moveLeft || moveRight)
-      setPosition(posCurrent);*/
+    //if (moveBackward || moveForward || moveLeft || moveRight)
+    //  setPosition(posCurrent);
   });
+
+  /*useFrame(() => {
+    if (moveBackward || moveForward || moveLeft || moveRight || jump) {
+      
+
+      const direction = new Vector3();
+      const frontVector = new Vector3(
+        0,
+        0,
+        (moveBackward ? 1 : 0) - (moveForward ? 1 : 0)
+      );
+      const sideVector = new Vector3(
+        (moveLeft ? 1 : 0) - (moveRight ? 1 : 0),
+        0,
+        0
+      );
+      direction
+        .subVectors(frontVector, sideVector)
+        .normalize()
+        .multiplyScalar(CHARACTER_SPEED)
+        .applyEuler(camera.rotation);
+
+      camera.position.add(direction);
+
+      api.velocity.set(direction.x, vel.current[1], direction.z);
+
+      if (jump && Math.abs(vel.current[1]) < 0.05) {
+        api.velocity.set(vel.current[0], CHARACTER_JUMP_FORCE, vel.current[2]);
+      }
+
+      // Actualizar la posición actual
+      pos.current[0] = camera.position.x;
+      pos.current[1] = camera.position.y;
+      pos.current[2] = camera.position.z;
+    }
+  });*/
 
   return <mesh ref={ref as React.MutableRefObject<Mesh>} />;
 };

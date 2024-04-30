@@ -44,7 +44,7 @@ function App() {
       <Physics>
         <Ground />
         <Player />
-        <Mountains />
+        {<Mountains />}
         <HouseBig
           position={[
             0,

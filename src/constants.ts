@@ -10,4 +10,5 @@ export const MOUNTAINS_RADIUS_MAX = 200;
 export const MOUNTAINS_HEIGHT_MIN = 3;
 export const MOUNTAINS_HEIGHT_MAX = 60;
 
-export const TREE_COUNT = 30;
+export const TREE_COUNT = 400;
+export const HOUSE_COUNT = 100;

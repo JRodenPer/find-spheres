@@ -1,4 +1,5 @@
 type Range = [number, number];
+type Position = [number, number];
 export type RandodomInfo = [number, number, number, number];
 
 function getRandomNumbersInRange(
@@ -14,7 +15,7 @@ function getRandomNumbersInRange(
   return [random1, random2];
 }
 
-export function generateRandomPositions(
+export function generateRandomMountainsPos(
   gridWidth: number,
   gridHeight: number,
   numPositions: number,
@@ -32,7 +33,23 @@ export function generateRandomPositions(
       [radiusMin, radiusMax],
       [heightMin, heightMax]
     );
-    positions.push([x, y, radius, height]);
+    positions.push([x - gridWidth / 2, y - gridHeight / 2, radius, height]);
+  }
+
+  return positions;
+}
+
+export function generateRandomPos(
+  gridWidth: number,
+  gridHeight: number,
+  numPositions: number
+): Position[] {
+  const positions: Position[] = [];
+
+  for (let i = 0; i < numPositions; i++) {
+    const x = Math.floor(Math.random() * gridWidth);
+    const y = Math.floor(Math.random() * gridHeight);
+    positions.push([x - gridWidth / 2, y - gridHeight / 2]);
   }
 
   return positions;
