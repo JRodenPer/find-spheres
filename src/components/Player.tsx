@@ -22,7 +22,7 @@ export const Player = () => {
 
   const pos = useRef([0, 0, 0]);
 
-  const [setPosition] = useStore((state) => [state.setPosition]);
+  //const [setPosition] = useStore((state) => [state.setPosition]);
 
   useEffect(() => {
     api.position.subscribe((p) => {
@@ -83,8 +83,8 @@ export const Player = () => {
       pos.current[1],
       pos.current[2],
     ];
-    if (moveBackward || moveForward || moveLeft || moveRight)
-      setPosition(posCurrent);
+    /*if (moveBackward || moveForward || moveLeft || moveRight)
+      setPosition(posCurrent);*/
   });
 
   return <mesh ref={ref as React.MutableRefObject<Mesh>} />;

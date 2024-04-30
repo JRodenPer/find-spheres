@@ -8,18 +8,22 @@ import { Brick } from "./components/Brick";
 import { House } from "./components/House";
 import { HouseBig } from "./components/HouseBig";
 import { Ship } from "./components/Ship";
-import { ThreeNamek } from "./components/ThreeNamek";
+import { TreeNamek } from "./components/TreeNamek";
 import { DragonBall } from "./components/DragonBall";
 import { HouseMid } from "./components/HouseMid";
 import { ShipCapsule } from "./components/ShipCapsule";
 import { ShipFreezer } from "./components/ShipFreezer";
 import { Mountain } from "./components/Mountain";
+import { Mountains } from "./components/Mountains";
+import { useStore } from "./hooks/useStore";
+import { SIZE_GROUND } from "./constants";
 
 function App() {
+  const [positions] = useStore((state) => [state.positions]);
   return (
     <Canvas shadows>
       <Sky sunPosition={[0, 100, 100]} />
-      {<ambientLight intensity={0.5} />}
+      {<ambientLight intensity={0.7} />}
       {
         <directionalLight
           position={[0, 100, 100]}
@@ -40,13 +44,21 @@ function App() {
       <Physics>
         <Ground />
         <Player />
-        <House position={[3, 60.1, -2]} />
+        <Mountains />
+        <HouseBig
+          position={[
+            0,
+            positions[SIZE_GROUND.SIZE_X / 2][SIZE_GROUND.SIZE_Y / 2],
+            0,
+          ]}
+        />
+        {/*<House position={[3, 60.1, -2]} />
         <HouseBig position={[10, 60.1, -2]} />
         <HouseMid position={[15, 60.1, -2]} />
         <Ship position={[-1, 60.1, -2]} />
         <ShipCapsule position={[-10, 60.1, -4]} />
         <ShipFreezer position={[-1, 60.1, -10]} />
-        <ThreeNamek position={[-2, 60.1, -2]} />
+        <TreeNamek position={[-2, 60.1, -2]} />
         <HouseBig position={[-20, 60.1, -20]} />
         <HouseBig position={[-200, 60.1, 0]} />
         <HouseBig position={[-100, 60.1, 0]} />
@@ -56,7 +68,7 @@ function App() {
         <DragonBall position={[4, 60.1, 10]} stars={4} />
         <DragonBall position={[5, 60.1, 10]} stars={5} />
         <DragonBall position={[6, 60.1, 10]} stars={6} />
-        <DragonBall position={[7, 60.1, 10]} stars={7} />
+    <DragonBall position={[7, 60.1, 10]} stars={7} />*/}
         {/*<Mountain
           position={[40, 0, -40]}
           radiusBottom={110}
@@ -68,13 +80,13 @@ function App() {
           radiusBottom={110}
           radiusTop={100}
           height={40}
-        />*/}
-        <Mountain
-          position={[0, 30, -30]}
-          radiusBottom={110}
-          radiusTop={100}
-          height={60}
         />
+        <Mountain
+          position={[0, 2.5, -30]}
+          radiusBottom={11}
+          radiusTop={10}
+          height={5}
+        />*/}
 
         {/*<Mountain
           position={[500, 250, -100]}
@@ -89,7 +101,7 @@ function App() {
           height={700}
       />
         <ShipCapsule position={[-5, 60.1, 0]} />
-        <ThreeNamek position={[-2, 60.1, -2]} />*/}
+        <TreeNamek position={[-2, 60.1, -2]} />*/}
       </Physics>
     </Canvas>
   );
