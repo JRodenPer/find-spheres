@@ -7,7 +7,7 @@ interface HouseProps {
   position: [number, number, number];
 }
 
-export const ThreeNamek = ({ position }: HouseProps) => {
+export const TreeNamek = ({ position }: HouseProps) => {
   const [ref] = useBox(() => ({
     type: "Static",
     position,
