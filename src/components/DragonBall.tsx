@@ -3,15 +3,16 @@ import { useBox } from "@react-three/cannon";
 import textures from "../images/textures";
 import { Mesh } from "three";
 
-interface BallProps {
+interface DragonBallProps {
   position: [number, number, number];
   stars: number;
 }
 
-export const Ball = ({ position, stars }: BallProps) => {
+export const DragonBall = ({ position, stars }: DragonBallProps) => {
+  const halfHeight = 0.05;
   const [ref] = useBox(() => ({
     type: "Static",
-    position,
+    position: [position[0], position[1] + halfHeight, position[2]],
     scale: [0.1, 0.1, 0.1],
   }));
 

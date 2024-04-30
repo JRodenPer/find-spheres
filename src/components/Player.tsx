@@ -4,8 +4,9 @@ import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
+import { useStore } from "../hooks/useStore";
 
-const CHARACTER_SPEED = 40;
+const CHARACTER_SPEED = 4;
 const CHARACTER_JUMP_FORCE = 4;
 
 export const Player = () => {
@@ -16,14 +17,19 @@ export const Player = () => {
   const [ref, api] = useSphere(() => ({
     mass: 1,
     type: "Dynamic",
-    position: [0, 0.5, 0],
+    position: [0, 100, 0],
   }));
 
   const pos = useRef([0, 0, 0]);
+
+  const [setPosition] = useStore((state) => [state.setPosition]);
+
   useEffect(() => {
     api.position.subscribe((p) => {
       pos.current = p;
     });
+
+    console.log(pos.current);
   }, [api.position]);
 
   const vel = useRef([0, 0, 0]);
@@ -71,6 +77,14 @@ export const Player = () => {
     if (jump && Math.abs(vel.current[1]) < 0.05) {
       api.velocity.set(vel.current[0], CHARACTER_JUMP_FORCE, vel.current[2]);
     }
+
+    const posCurrent: [number, number, number] = [
+      pos.current[0],
+      pos.current[1],
+      pos.current[2],
+    ];
+    if (moveBackward || moveForward || moveLeft || moveRight)
+      setPosition(posCurrent);
   });
 
   return <mesh ref={ref as React.MutableRefObject<Mesh>} />;
