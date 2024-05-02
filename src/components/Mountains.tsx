@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import {
   RandodomInfo,
@@ -13,6 +14,7 @@ import {
   SIZE_GROUND,
   TREE_COUNT,
   HOUSE_COUNT,
+  PERCENT_SUB_ITEMS,
 } from "../constants";
 import { Mountain } from "./Mountain";
 import { TreeNamek } from "./TreeNamek";
@@ -28,6 +30,7 @@ export const Mountains = () => {
       SIZE_GROUND.SIZE_X,
       SIZE_GROUND.SIZE_Y,
       MOUNTAINS_COUNT,
+      PERCENT_SUB_ITEMS,
       MOUNTAINS_RADIUS_MIN,
       MOUNTAINS_RADIUS_MAX,
       MOUNTAINS_HEIGHT_MIN,
@@ -52,24 +55,35 @@ export const Mountains = () => {
 
   return (
     <group>
-      {positions.map((item, index) => (
-        <Mountain
-          key={index}
-          position={[item[0], item[3] / 2, item[1]]}
-          radiusTop={item[2]}
-          radiusBottom={item[2] * 1.1}
-          height={item[3]}
-        />
+      {positions.map((item) => (
+        <>
+          <Mountain
+            key={nanoid()}
+            position={item.position}
+            subPositions={item.subPositions}
+            radiusTop={item.radius}
+            radiusBottom={item.radius * 1.1}
+            height={item.height}
+          />
+          {item.subPositions
+            ? item.subPositions.map((subItem) => (
+                <House
+                  key={nanoid()}
+                  position={[subItem[0], item.position[1] * 2, subItem[1]]}
+                />
+              ))
+            : null}
+        </>
       ))}
       {/*positions.map((item, index) => (
         <TreeNamek key={index} position={[item[0], 0 / 2, item[1]]} />
-      ))*/}
+      ))
       {positionsTree.map((item, index) => (
         <TreeNamek key={index} position={[item[0], 0 / 2, item[1]]} />
       ))}
       {positionsHouse.map((item, index) => (
         <House key={index} position={[item[0], 0 / 2, item[1]]} />
-      ))}
+      ))}*/}
     </group>
   );
 };

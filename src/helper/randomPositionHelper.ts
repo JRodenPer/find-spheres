@@ -1,6 +1,13 @@
 type Range = [number, number];
 type Position = [number, number];
-export type RandodomInfo = [number, number, number, number];
+//export type RandodomInfo = [number, number, number, number];
+
+export interface RandodomInfo {
+  position: [number, number, number];
+  radius: number;
+  height: number;
+  subPositions: [number, number][];
+}
 
 function getRandomNumbersInRange(
   range1: Range,
@@ -19,6 +26,7 @@ export function generateRandomMountainsPos(
   gridWidth: number,
   gridHeight: number,
   numPositions: number,
+  percentAvailable: number,
   radiusMin: number,
   radiusMax: number,
   heightMin: number,
@@ -33,8 +41,34 @@ export function generateRandomMountainsPos(
       [radiusMin, radiusMax],
       [heightMin, heightMax]
     );
-    positions.push([x - gridWidth / 2, y - gridHeight / 2, radius, height]);
+
+    positions.push({
+      position: [x - gridWidth / 2, height / 2, y - gridHeight / 2],
+      radius,
+      height,
+      subPositions: [],
+    });
   }
+
+  for (let i = 0; i < positions.length; i++) {
+    const centerPos = positions[i].position;
+    const radius = positions[i].radius;
+    //const height = positions[i].height;
+    //console.log("altura: " + height);
+    const activeDistance = radius * Math.sqrt(2);
+    const maxSubPositions = percentAvailable * activeDistance;
+    for (let j = 0; j < maxSubPositions; j++) {
+      const x = Math.floor(Math.random() * activeDistance);
+      const y = Math.floor(Math.random() * activeDistance);
+      const subPosition: [number, number] = [
+        centerPos[0] - activeDistance / 2 + x,
+        centerPos[2] - activeDistance / 2 + y,
+      ];
+      positions[i].subPositions.push(subPosition);
+    }
+  }
+
+  positions.sort((item1, item2) => item2.height - item1.height);
 
   return positions;
 }

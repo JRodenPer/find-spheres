@@ -24,6 +24,8 @@ export const House = ({ position }: HouseProps) => {
     position: [position[0], position[1] + halfHeight, position[2]],
     args: [1],
     mass: 1,
+    //collisionFilterGroup: 2,
+    //collisionFilterMask: 1,
   }));
 
   return (

@@ -44,15 +44,15 @@ function App() {
       <Physics>
         <Ground />
         <Player />
-        {<Mountains />}
-        <HouseBig
+        <Mountains />
+        {/* <HouseBig
           position={[
             0,
             positions[SIZE_GROUND.SIZE_X / 2][SIZE_GROUND.SIZE_Y / 2],
             0,
           ]}
-        />
-        {/*<House position={[3, 60.1, -2]} />
+        />*/}
+        {/*<House position={[0, 33.1, 0]} />
         <HouseBig position={[10, 60.1, -2]} />
         <HouseMid position={[15, 60.1, -2]} />
         <Ship position={[-1, 60.1, -2]} />
@@ -82,10 +82,11 @@ function App() {
           height={40}
         />
         <Mountain
-          position={[0, 2.5, -30]}
+          position={[0, 2.5, 0]}
           radiusBottom={11}
           radiusTop={10}
           height={5}
+          subPositions={[]}
         />*/}
 
         {/*<Mountain

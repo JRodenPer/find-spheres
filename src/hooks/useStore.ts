@@ -36,7 +36,7 @@ export const useStore = create<IState>((set) => ({
   },
 
   setPositionPlayer: (positionPlayer: [number, number, number]) => {
-    console.log(positionPlayer);
+    //console.log(positionPlayer);
     set(() => ({
       positionPlayer,
     }));
