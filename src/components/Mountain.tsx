@@ -7,9 +7,11 @@ import {
   generateNoiseMap,
   generateTextureFromNoiseMap,
 } from "../helper/noiseTextureHelper";
+import { House } from "./House";
 
 interface MountainProps {
   position: [number, number, number];
+  subPositions: [number, number][];
   radiusTop: number;
   radiusBottom: number;
   height: number;
@@ -28,6 +30,7 @@ function toConvexProps(bufferGeometry: any) {
 
 export const Mountain = ({
   position,
+  subPositions = [],
   radiusTop,
   radiusBottom,
   height,

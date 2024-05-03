@@ -1,53 +1,62 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type ActionsKeyboardMap = {
   [key: string]: string;
 };
 
 const ACTIONS_KEYBOARD_MAP: ActionsKeyboardMap = {
-  KeyW: "moveForward",
-  KeyS: "moveBackward",
-  KeyD: "moveRight",
-  KeyA: "moveLeft",
+  KeyW: "walk",
+  KeyR: "run",
+  KeyF: "fly",
   Space: "jump",
 };
 
 export const useKeyboard = () => {
-  const [actions, setActions] = useState({
-    moveForward: false,
-    moveBackward: false,
-    moveLeft: false,
-    moveRight: false,
+  const [actions, setActions]: any = useState({
+    walk: false,
+    run: false,
+    fly: false,
     jump: false,
-    dirt: false,
-    grass: false,
-    glass: false,
-    wood: false,
-    log: false,
   });
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const { code } = event;
       const action = ACTIONS_KEYBOARD_MAP[code];
-      console.log(action);
-      if (action) {
-        setActions((prevActions) => ({
+      if (action === "jump" && !actions[action]) {
+        setActions((prevActions: any) => ({
           ...prevActions,
           [action]: true,
         }));
+        event.preventDefault();
       }
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
       const { code } = event;
-      console.log(code);
       const action = ACTIONS_KEYBOARD_MAP[code];
+      console.log(action);
       if (action) {
-        setActions((prevActions) => ({
-          ...prevActions,
-          [action]: false,
-        }));
+        action === ACTIONS_KEYBOARD_MAP.Space
+          ? setActions((prevActions: any) => ({
+              ...prevActions,
+              [action]: false,
+            }))
+          : setActions((prevActions: any) => ({
+              walk:
+                action === ACTIONS_KEYBOARD_MAP.KeyW
+                  ? !prevActions[action]
+                  : false,
+              run:
+                action === ACTIONS_KEYBOARD_MAP.KeyR
+                  ? !prevActions[action]
+                  : false,
+              fly:
+                action === ACTIONS_KEYBOARD_MAP.KeyF
+                  ? !prevActions[action]
+                  : false,
+              jump: false,
+            }));
       }
     };
 
@@ -56,7 +65,7 @@ export const useKeyboard = () => {
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
 
