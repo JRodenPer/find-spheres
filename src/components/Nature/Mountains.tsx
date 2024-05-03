@@ -4,7 +4,7 @@ import {
   RandodomInfo,
   generateRandomMountainsPos,
   generateRandomPos,
-} from "../helper/randomPositionHelper";
+} from "../../helper/randomPositionHelper";
 import {
   MOUNTAINS_COUNT,
   MOUNTAINS_HEIGHT_MAX,
@@ -16,11 +16,10 @@ import {
   TREE_COUNT,
   HOUSE_COUNT,
   PERCENT_SUB_ITEMS,
-} from "../constants";
+} from "../../constants";
 import { Mountain } from "./Mountain";
 import { TreeNamek } from "./TreeNamek";
-import { HouseBig } from "./HouseBig";
-import { House } from "./House";
+import { House, HouseType } from "../House";
 
 export const Mountains = () => {
   const [positions, setPositions] = useState<RandodomInfo[]>([]);
@@ -70,6 +69,7 @@ export const Mountains = () => {
             ? item.subPositions.map((subItem) => (
                 <House
                   key={nanoid()}
+                  type={HouseType.Big}
                   position={[subItem[0], item.position[1] * 2, subItem[1]]}
                 />
               ))
