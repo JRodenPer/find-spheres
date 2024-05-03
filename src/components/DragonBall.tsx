@@ -1,7 +1,7 @@
+import { Mesh } from "three";
 import { useEffect, useState } from "react";
 import { useBox } from "@react-three/cannon";
 import textures from "../images/textures";
-import { Mesh } from "three";
 
 interface DragonBallProps {
   position: [number, number, number];

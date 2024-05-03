@@ -6,8 +6,7 @@ import { Geometry } from "three-stdlib";
 import {
   generateNoiseMap,
   generateTextureFromNoiseMap,
-} from "../helper/noiseTextureHelper";
-import { House } from "./House";
+} from "../../helper/noiseTextureHelper";
 
 interface MountainProps {
   position: [number, number, number];

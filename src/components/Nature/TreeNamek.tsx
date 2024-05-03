@@ -1,7 +1,7 @@
 import { useBox } from "@react-three/cannon";
 import { Mesh } from "three";
 import { Cone, Cylinder, Sphere } from "@react-three/drei";
-import textures from "../images/textures";
+import textures from "../../images/textures";
 
 interface HouseProps {
   position: [number, number, number];

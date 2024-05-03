@@ -1,9 +1,6 @@
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Mesh } from "three";
-import { SIZE_GROUND } from "../constants";
-
-const { SIZE_X, SIZE_Y } = SIZE_GROUND;
 
 interface WaterProps {
   position: [number, number, number];

@@ -1,6 +1,6 @@
 import { useSphere } from "@react-three/cannon";
 import { Mesh } from "three";
-import { Cone, Cylinder, Sphere } from "@react-three/drei";
+import { Cylinder } from "@react-three/drei";
 import { Skylight } from "./Skylight";
 
 interface DoorProps {
