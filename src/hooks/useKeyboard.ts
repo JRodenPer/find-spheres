@@ -5,49 +5,58 @@ type ActionsKeyboardMap = {
 };
 
 const ACTIONS_KEYBOARD_MAP: ActionsKeyboardMap = {
-  KeyW: "moveForward",
-  KeyS: "moveBackward",
-  KeyD: "moveRight",
-  KeyA: "moveLeft",
+  KeyW: "walk",
+  KeyR: "run",
+  KeyF: "fly",
   Space: "jump",
 };
 
 export const useKeyboard = () => {
   const [actions, setActions]: any = useState({
-    moveForward: false,
-    moveBackward: false,
-    moveLeft: false,
-    moveRight: false,
+    walk: false,
+    run: false,
+    fly: false,
     jump: false,
-    dirt: false,
-    grass: false,
-    glass: false,
-    wood: false,
-    log: false,
   });
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const { code } = event;
       const action = ACTIONS_KEYBOARD_MAP[code];
-      console.log("keyDown " + code);
-      if (action && !actions[action]) {
+      if (action === "jump" && !actions[action]) {
         setActions((prevActions: any) => ({
           ...prevActions,
           [action]: true,
         }));
+        event.preventDefault();
       }
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
       const { code } = event;
-      console.log("keyUp " + code);
       const action = ACTIONS_KEYBOARD_MAP[code];
+      console.log(action);
       if (action) {
-        setActions((prevActions: any) => ({
-          ...prevActions,
-          [action]: false,
-        }));
+        action === ACTIONS_KEYBOARD_MAP.Space
+          ? setActions((prevActions: any) => ({
+              ...prevActions,
+              [action]: false,
+            }))
+          : setActions((prevActions: any) => ({
+              walk:
+                action === ACTIONS_KEYBOARD_MAP.KeyW
+                  ? !prevActions[action]
+                  : false,
+              run:
+                action === ACTIONS_KEYBOARD_MAP.KeyR
+                  ? !prevActions[action]
+                  : false,
+              fly:
+                action === ACTIONS_KEYBOARD_MAP.KeyF
+                  ? !prevActions[action]
+                  : false,
+              jump: false,
+            }));
       }
     };
 
@@ -62,38 +71,3 @@ export const useKeyboard = () => {
 
   return actions;
 };
-/*
-export const useKeyboard = () => {
-  const [keyState, setKeyState] = useState({});
-
-  const handleKeyDown = (event: KeyboardEvent) => {
-    setKeyState((prevKeyState) => ({
-      ...prevKeyState,
-      [event.code]: true,
-    }));
-  };
-
-  const handleKeyUp = (event: KeyboardEvent) => {
-    setKeyState((prevKeyState) => ({
-      ...prevKeyState,
-      [event.code]: false,
-    }));
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyUp);
-    };
-  }, []);
-
-  const actions = Object.keys(ACTIONS_KEYBOARD_MAP).reduce((acc, code) => {
-    acc[ACTIONS_KEYBOARD_MAP[code]] = !!keyState[code];
-    return acc;
-  }, {});
-
-  return actions;
-};*/

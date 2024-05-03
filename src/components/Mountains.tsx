@@ -11,6 +11,7 @@ import {
   MOUNTAINS_HEIGHT_MIN,
   MOUNTAINS_RADIUS_MAX,
   MOUNTAINS_RADIUS_MIN,
+  MOUNTAINS_RADIUS_BOTTOM_PERCENT,
   SIZE_GROUND,
   TREE_COUNT,
   HOUSE_COUNT,
@@ -62,7 +63,7 @@ export const Mountains = () => {
             position={item.position}
             subPositions={item.subPositions}
             radiusTop={item.radius}
-            radiusBottom={item.radius * 1.1}
+            radiusBottom={item.radius * MOUNTAINS_RADIUS_BOTTOM_PERCENT}
             height={item.height}
           />
           {item.subPositions

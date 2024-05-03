@@ -1,3 +1,5 @@
+import { MOUNTAINS_RADIUS_BOTTOM_PERCENT } from "../constants";
+
 type Range = [number, number];
 type Position = [number, number];
 //export type RandodomInfo = [number, number, number, number];
@@ -7,6 +9,16 @@ export interface RandodomInfo {
   radius: number;
   height: number;
   subPositions: [number, number][];
+}
+
+function isPointInsideCircle(
+  center: [number, number],
+  radius: number,
+  point: [number, number]
+): boolean {
+  return (
+    (point[0] - center[0]) ** 2 + (point[1] - center[1]) ** 2 <= radius ** 2
+  );
 }
 
 function getRandomNumbersInRange(
@@ -50,25 +62,43 @@ export function generateRandomMountainsPos(
     });
   }
 
+  positions.sort((item1, item2) => item2.height - item1.height);
+
   for (let i = 0; i < positions.length; i++) {
     const centerPos = positions[i].position;
     const radius = positions[i].radius;
-    //const height = positions[i].height;
-    //console.log("altura: " + height);
     const activeDistance = radius * Math.sqrt(2);
     const maxSubPositions = percentAvailable * activeDistance;
     for (let j = 0; j < maxSubPositions; j++) {
       const x = Math.floor(Math.random() * activeDistance);
       const y = Math.floor(Math.random() * activeDistance);
+
       const subPosition: [number, number] = [
         centerPos[0] - activeDistance / 2 + x,
         centerPos[2] - activeDistance / 2 + y,
       ];
+
+      // check valid position
+      let isValid = true;
+      for (let k = 0; k < i; k++) {
+        const centerPosCheck = positions[k].position;
+        const radiusCheck =
+          positions[k].radius * MOUNTAINS_RADIUS_BOTTOM_PERCENT;
+        const checkPosition = isPointInsideCircle(
+          [centerPosCheck[0], centerPosCheck[2]],
+          radiusCheck,
+          subPosition
+        );
+        if (checkPosition) {
+          isValid = false;
+          break;
+        }
+      }
+      if (!isValid) continue;
+
       positions[i].subPositions.push(subPosition);
     }
   }
-
-  positions.sort((item1, item2) => item2.height - item1.height);
 
   return positions;
 }
