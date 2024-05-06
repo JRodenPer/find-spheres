@@ -17,13 +17,13 @@ export const TreeNamek = ({ position }: HouseProps) => {
   return (
     <>
       <mesh ref={ref as React.MutableRefObject<Mesh>} castShadow receiveShadow>
-        <Cylinder scale={[0.025, 1, 0.025]} castShadow receiveShadow>
+        <Cylinder args={[0.025, 0.025, 1, 8]} castShadow receiveShadow>
           <meshStandardMaterial attach="material" map={textures.woodTexture} />
         </Cylinder>
 
         <Sphere
           position={[0, 0.5, 0]}
-          scale={[0.15, 0.15, 0.15]}
+          args={[0.15, 8, 6]}
           castShadow
           receiveShadow
         >

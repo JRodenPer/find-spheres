@@ -1,11 +1,12 @@
 import { Sky } from "@react-three/drei";
 import { Physics } from "@react-three/cannon";
 import { Canvas } from "@react-three/fiber";
-import { Ground } from "../components/Nature";
+import { Ground, Mountain } from "../components/Nature";
 import { FirstPV } from "../components/FirstPV";
 import { Player } from "../components/Player";
 import { Mountains } from "../components/Nature";
 import { useStore } from "../hooks/useStore";
+import { SIZE_GROUND } from "../constants";
 
 const World = () => {
   const [positions] = useStore((state) => [state.positions]);
@@ -77,20 +78,13 @@ const World = () => {
           height={5}
           subPositions={[]}
         />*/}
-
-        {/*<Mountain
-          position={[500, 250, -100]}
-          radiusBottom={510}
-          radiusTop={10}
-          height={500}
-        />
         <Mountain
-          position={[600, 350, -100]}
-          radiusBottom={510}
+          position={[-3 * SIZE_GROUND.SIZE_Y, 200, -3 * SIZE_GROUND.SIZE_Y]}
+          radiusBottom={400}
           radiusTop={10}
-          height={700}
-      />
-        <ShipCapsule position={[-5, 60.1, 0]} />
+          height={400}
+        />
+        {/*<ShipCapsule position={[-5, 60.1, 0]} />
         <TreeNamek position={[-2, 60.1, -2]} />*/}
       </Physics>
     </Canvas>

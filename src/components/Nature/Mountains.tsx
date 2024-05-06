@@ -4,6 +4,7 @@ import {
   RandodomInfo,
   generateRandomMountainsPos,
   generateRandomPos,
+  getRandomNumber,
 } from "../../helper/randomPositionHelper";
 import {
   MOUNTAINS_COUNT,
@@ -13,18 +14,17 @@ import {
   MOUNTAINS_RADIUS_MIN,
   MOUNTAINS_RADIUS_BOTTOM_PERCENT,
   SIZE_GROUND,
-  TREE_COUNT,
   HOUSE_COUNT,
   PERCENT_SUB_ITEMS,
 } from "../../constants";
 import { Mountain } from "./Mountain";
 import { TreeNamek } from "./TreeNamek";
-import { House, HouseType } from "../House";
+import { House, HouseType, Village } from "../Community";
 
 export const Mountains = () => {
-  const [positions, setPositions] = useState<RandodomInfo[]>([]);
-  const [positionsTree, setPositionsTree] = useState<RandodomInfo[]>([]);
-  const [positionsHouse, setPositionsHouse] = useState<RandodomInfo[]>([]);
+  const [positionsMountain, setPositionsMountain] = useState<RandodomInfo[]>(
+    []
+  );
   useEffect(() => {
     const items: RandodomInfo[] = generateRandomMountainsPos(
       SIZE_GROUND.SIZE_X,
@@ -36,40 +36,33 @@ export const Mountains = () => {
       MOUNTAINS_HEIGHT_MIN,
       MOUNTAINS_HEIGHT_MAX
     );
-    setPositions(items);
-
-    const items3: any = generateRandomPos(
-      SIZE_GROUND.SIZE_X,
-      SIZE_GROUND.SIZE_Y,
-      TREE_COUNT
-    );
-    setPositionsTree(items);
-
-    const items2: any = generateRandomPos(
-      SIZE_GROUND.SIZE_X,
-      SIZE_GROUND.SIZE_Y,
-      HOUSE_COUNT
-    );
-    setPositionsHouse(items2);
+    setPositionsMountain(items);
   }, []);
 
   return (
     <group>
-      {positions.map((item) => (
+      {positionsMountain.map((item) => (
         <>
           <Mountain
             key={nanoid()}
             position={item.position}
-            subPositions={item.subPositions}
             radiusTop={item.radius}
             radiusBottom={item.radius * MOUNTAINS_RADIUS_BOTTOM_PERCENT}
             height={item.height}
           />
-          {item.subPositions
-            ? item.subPositions.map((subItem) => (
-                <House
+          {item.subPositionsVillage
+            ? item.subPositionsVillage.map((subItem) => (
+                <Village
                   key={nanoid()}
-                  type={HouseType.Big}
+                  position={[subItem[0], item.position[1] * 2, subItem[1]]}
+                  housesCount={getRandomNumber(HOUSE_COUNT, 10)}
+                />
+              ))
+            : null}
+          {item.subPositionsTree
+            ? item.subPositionsTree.map((subItem) => (
+                <TreeNamek
+                  key={nanoid()}
                   position={[subItem[0], item.position[1] * 2, subItem[1]]}
                 />
               ))
