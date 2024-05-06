@@ -7,8 +7,8 @@ import { Mesh } from "three";
 import { useStore } from "../hooks/useStore";
 import * as THREE from "three";
 
-const CHARACTER_SPEED_WALK = 3;
-const CHARACTER_SPEED_RUN = 0.6;
+const CHARACTER_SPEED_WALK = 30;
+const CHARACTER_SPEED_RUN = 6;
 const CHARACTER_JUMP_FORCE = 4;
 
 export const Player = () => {
@@ -49,15 +49,15 @@ export const Player = () => {
 
     direction.applyEuler(camera.rotation);
 
-    /*camera.position.add(
+    camera.position.add(
       new Vector3(
         -camera.position.x + pos.current[0],
         -camera.position.y + pos.current[1],
         -camera.position.z + pos.current[2]
       )
-    );*/
+    );
 
-    camera.position.add(direction);
+    //camera.position.add(direction);
 
     api.velocity.set(direction.x, vel.current[1], direction.z);
 

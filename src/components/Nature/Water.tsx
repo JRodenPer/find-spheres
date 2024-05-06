@@ -11,7 +11,7 @@ export const Water = ({ position, size }: WaterProps) => {
   const waterRef = useRef<Mesh>();
 
   // Función para animar la superficie del agua
-  useFrame(({ clock }) => {
+  /*useFrame(({ clock }) => {
     if (waterRef.current) {
       const time = clock.elapsedTime; // Obtiene el tiempo transcurrido
       const vertices = waterRef.current.geometry.attributes.position;
@@ -27,7 +27,7 @@ export const Water = ({ position, size }: WaterProps) => {
       // Notifica a Three.js que los vértices han sido modificados
       vertices.needsUpdate = true;
     }
-  });
+  });*/
 
   return (
     <mesh
@@ -35,7 +35,7 @@ export const Water = ({ position, size }: WaterProps) => {
       position={position}
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <planeGeometry args={[size[0], size[1] + 2]} />
+      <planeGeometry args={size} />
       <meshStandardMaterial
         transparent
         opacity={0.8}

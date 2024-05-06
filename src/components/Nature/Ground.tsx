@@ -32,7 +32,7 @@ export function Ground() {
       </mesh>
       <Water
         position={[-SIZE_X - 1, -1, 0]}
-        size={[SIZE_X * 10, SIZE_Y * 10]}
+        size={[SIZE_X * 15, SIZE_Y * 15]}
       />
     </group>
   );
