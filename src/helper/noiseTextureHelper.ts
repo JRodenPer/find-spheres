@@ -43,7 +43,7 @@ function lerp(a: number, b: number, t: number): number {
 
 export function generateTextureFromNoiseMap(
   noiseMap: number[][],
-  color1: string = "green",
+  color1: string = "#8CE0C9",
   color2: string = "yellow",
   seamLess: boolean = false
 ): THREE.Texture {

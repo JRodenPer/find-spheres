@@ -1,5 +1,5 @@
 import { Mesh } from "three";
-import { useBox } from "@react-three/cannon";
+import { useBox, useSphere } from "@react-three/cannon";
 import { Sphere } from "@react-three/drei";
 import textures from "../../images/textures";
 import { ShipFreezerSupport } from "./ShipFreezerSupport";
@@ -13,14 +13,14 @@ export const ShipFreezer = ({ position }: ShipProps) => {
   const shipCapsuleSupportHeight = 0.4;
   const halfHeight = 0.5;
 
-  const [ref] = useBox(() => ({
+  const [ref] = useSphere(() => ({
     type: "Static",
     position: [
       position[0],
       position[1] + halfHeight + shipCapsuleSupportHeight / 2,
       position[2],
     ],
-    scale: [10, 3, 10],
+    args: [5],
   }));
 
   return (

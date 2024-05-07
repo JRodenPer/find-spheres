@@ -6,6 +6,7 @@ import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
 import { useStore } from "../hooks/useStore";
 import * as THREE from "three";
+import { SIZE_GROUND } from "../constants";
 
 const CHARACTER_SPEED_WALK = 30;
 const CHARACTER_SPEED_RUN = 6;
@@ -23,14 +24,12 @@ export const Player = () => {
     position: [0, 100, 0],
   }));
 
-  const pos = useRef([0, 0, 0]);
+  const pos = useRef([0, 100, 0]);
 
   useEffect(() => {
     api.position.subscribe((p) => {
       pos.current = p;
     });
-
-    //console.log(pos.current);
   }, [api.position]);
 
   const vel = useRef([0, 0, 0]);
@@ -49,6 +48,32 @@ export const Player = () => {
 
     direction.applyEuler(camera.rotation);
 
+    console.log(pos.current);
+
+    if (pos.current[0] > SIZE_GROUND.SIZE_X) {
+      pos.current[0] = SIZE_GROUND.SIZE_X;
+      vel.current[0] = 0;
+      vel.current[2] = 0;
+    }
+
+    if (pos.current[0] < -SIZE_GROUND.SIZE_X) {
+      pos.current[0] = -SIZE_GROUND.SIZE_X;
+      vel.current[0] = 0;
+      vel.current[2] = 0;
+    }
+
+    if (pos.current[2] > SIZE_GROUND.SIZE_Y) {
+      pos.current[2] = SIZE_GROUND.SIZE_Y;
+      vel.current[0] = 0;
+      vel.current[2] = 0;
+    }
+
+    if (pos.current[2] < -SIZE_GROUND.SIZE_Y) {
+      pos.current[2] = -SIZE_GROUND.SIZE_Y;
+      vel.current[0] = 0;
+      vel.current[2] = 0;
+    }
+
     camera.position.add(
       new Vector3(
         -camera.position.x + pos.current[0],
@@ -56,6 +81,8 @@ export const Player = () => {
         -camera.position.z + pos.current[2]
       )
     );
+
+    api.position.set(pos.current[0], pos.current[1], pos.current[2]);
 
     //camera.position.add(direction);
 
