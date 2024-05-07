@@ -7,12 +7,13 @@ import { Player } from "../components/Player";
 import { Mountains } from "../components/Nature";
 import { useStore } from "../hooks/useStore";
 import { SIZE_GROUND } from "../constants";
+import { DragonBall } from "./DragonBall";
 
 const World = () => {
   const [positions] = useStore((state) => [state.positions]);
   return (
     <Canvas shadows>
-      <Sky sunPosition={[0, 100, 100]} />
+      <Sky distance={3000} sunPosition={[0, 100, 100]} />
       {<ambientLight intensity={0.7} />}
       {
         <directionalLight
@@ -79,10 +80,52 @@ const World = () => {
           subPositions={[]}
         />*/}
         <Mountain
-          position={[-3 * SIZE_GROUND.SIZE_Y, 200, -3 * SIZE_GROUND.SIZE_Y]}
+          position={[-1.5 * SIZE_GROUND.SIZE_Y, 20, -1.5 * SIZE_GROUND.SIZE_Y]}
           radiusBottom={400}
           radiusTop={10}
-          height={400}
+          height={40}
+        />
+        <Mountain
+          position={[-1.5 * SIZE_GROUND.SIZE_Y, 20, 1.5 * SIZE_GROUND.SIZE_Y]}
+          radiusBottom={400}
+          radiusTop={100}
+          height={40}
+        />
+        <Mountain
+          position={[1.5 * SIZE_GROUND.SIZE_Y, 20, -2 * SIZE_GROUND.SIZE_Y]}
+          radiusBottom={400}
+          radiusTop={100}
+          height={40}
+        />
+        <Mountain
+          position={[1.5 * SIZE_GROUND.SIZE_Y, 20, 1.5 * SIZE_GROUND.SIZE_Y]}
+          radiusBottom={400}
+          radiusTop={10}
+          height={40}
+        />
+        <Mountain
+          position={[-2 * SIZE_GROUND.SIZE_Y, 20, 0]}
+          radiusBottom={400}
+          radiusTop={100}
+          height={40}
+        />
+        <Mountain
+          position={[0, 20, 2 * SIZE_GROUND.SIZE_Y]}
+          radiusBottom={400}
+          radiusTop={10}
+          height={40}
+        />
+        <Mountain
+          position={[2 * SIZE_GROUND.SIZE_Y, 20, 0]}
+          radiusBottom={400}
+          radiusTop={10}
+          height={40}
+        />
+        <Mountain
+          position={[0, 20, -2 * SIZE_GROUND.SIZE_Y]}
+          radiusBottom={400}
+          radiusTop={100}
+          height={40}
         />
         {/*<ShipCapsule position={[-5, 60.1, 0]} />
         <TreeNamek position={[-2, 60.1, -2]} />*/}

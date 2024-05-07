@@ -12,7 +12,7 @@ export interface RandodomInfo {
   radius: number;
   height: number;
   subPositionsVillage: [number, number][];
-  subPositionsTree: [number, number][];
+  subPositionsItem: { position: [number, number]; isDragonBall: boolean }[];
 }
 
 function isPointInsideCircle(
@@ -49,12 +49,13 @@ export function generateRandomMountainsPos(
   heightMax: number
 ): RandodomInfo[] {
   const positions: RandodomInfo[] = [];
+  let totalSubitems = 0;
 
   for (let i = 0; i < numPositions; i++) {
     const x = Math.floor(Math.random() * gridWidth);
     const y = Math.floor(Math.random() * gridHeight);
     const [radius, height] = getRandomNumbersInRange(
-      [radiusMin, radiusMax],
+      [i === 0 ? radiusMin * 3 : radiusMin, radiusMax],
       [heightMin, heightMax]
     );
 
@@ -63,7 +64,7 @@ export function generateRandomMountainsPos(
       radius,
       height,
       subPositionsVillage: [],
-      subPositionsTree: [],
+      subPositionsItem: [],
     });
   }
 
@@ -74,7 +75,7 @@ export function generateRandomMountainsPos(
     const centerPos = positions[i].position;
     const radius = positions[i].radius;
     const activeDistance = (2 * radius) / Math.sqrt(2) - tolerance;
-    const maxSubPositions = activeDistance;
+    const maxSubPositions = percentAvailable * activeDistance;
     const countVillage = getRandomNumber(VILLAGE_PER_MOUNTAIN_COUNT, 2);
     for (let j = 0; j < maxSubPositions; j++) {
       const x = getRandomNumber(activeDistance, 0);
@@ -105,7 +106,29 @@ export function generateRandomMountainsPos(
 
       if (positions[i].subPositionsVillage.length < countVillage)
         positions[i].subPositionsVillage.push(subPosition);
-      else positions[i].subPositionsTree.push(subPosition);
+      else {
+        positions[i].subPositionsItem.push({
+          position: subPosition,
+          isDragonBall: false,
+        });
+        totalSubitems++;
+      }
+    }
+  }
+
+  // dragon balls
+  const dragonBallPositions = [];
+  for (let i = 0; i < 7; i++) {
+    const numero = Math.floor(Math.random() * (totalSubitems + 1));
+    dragonBallPositions.push(numero);
+  }
+
+  let count = 0;
+  for (let i = 0; i < positions.length; i++) {
+    for (let j = 0; j < positions[i].subPositionsItem.length; j++) {
+      if (dragonBallPositions.includes(count))
+        positions[i].subPositionsItem[j].isDragonBall = true;
+      count++;
     }
   }
 

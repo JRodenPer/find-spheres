@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Mesh } from "three";
+import {
+  generateNoiseMap,
+  generateTextureFromNoiseMap,
+} from "../../helper/noiseTextureHelper";
 
 interface WaterProps {
   position: [number, number, number];
@@ -29,6 +33,9 @@ export const Water = ({ position, size }: WaterProps) => {
     }
   });*/
 
+  const noiseMap = generateNoiseMap(5, 5, 10, 0, 0);
+  const texture = generateTextureFromNoiseMap(noiseMap, "blue", "white");
+
   return (
     <mesh
       ref={waterRef as React.MutableRefObject<Mesh>}
@@ -41,7 +48,7 @@ export const Water = ({ position, size }: WaterProps) => {
         opacity={0.8}
         roughness={0.2}
         metalness={0.5}
-        color="blue"
+        map={texture}
       />
     </mesh>
   );

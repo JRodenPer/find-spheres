@@ -20,11 +20,18 @@ import {
 import { Mountain } from "./Mountain";
 import { TreeNamek } from "./TreeNamek";
 import { House, HouseType, Village } from "../Community";
+import { ShipCapsule } from "../Ship/ShipCapsule";
+import { ShipFreezer } from "../Ship/ShipFreezer";
+import { ShipNamek } from "../Ship/ShipNamek";
+import { DragonBall } from "../DragonBall";
 
 export const Mountains = () => {
   const [positionsMountain, setPositionsMountain] = useState<RandodomInfo[]>(
     []
   );
+  const [positionsDragonBall, setpositionsDragonBall] = useState<
+    [number, number][]
+  >([]);
   useEffect(() => {
     const items: RandodomInfo[] = generateRandomMountainsPos(
       SIZE_GROUND.SIZE_X,
@@ -39,9 +46,35 @@ export const Mountains = () => {
     setPositionsMountain(items);
   }, []);
 
+  let countDB = 0;
+  const renderSubItem = (
+    position: [number, number, number],
+    index: number,
+    subIndex: number
+  ) => {
+    if (index === 0) {
+      switch (subIndex) {
+        case 0:
+          return <ShipCapsule key={nanoid()} position={position} />;
+        case 1:
+          return <ShipFreezer key={nanoid()} position={position} />;
+        case 2:
+          return <ShipNamek key={nanoid()} position={position} />;
+        default:
+          break;
+      }
+    }
+
+    return positionsMountain[index].subPositionsItem[subIndex].isDragonBall ? (
+      <DragonBall key={nanoid()} position={position} stars={++countDB} />
+    ) : (
+      <TreeNamek key={nanoid()} position={position} />
+    );
+  };
+
   return (
     <group>
-      {positionsMountain.map((item) => (
+      {positionsMountain.map((item, indexMountain) => (
         <>
           <Mountain
             key={nanoid()}
@@ -59,25 +92,21 @@ export const Mountains = () => {
                 />
               ))
             : null}
-          {item.subPositionsTree
-            ? item.subPositionsTree.map((subItem) => (
-                <TreeNamek
-                  key={nanoid()}
-                  position={[subItem[0], item.position[1] * 2, subItem[1]]}
-                />
-              ))
+          {item.subPositionsItem
+            ? item.subPositionsItem.map((subItem, index) =>
+                renderSubItem(
+                  [
+                    subItem.position[0],
+                    item.position[1] * 2 + 0.1,
+                    subItem.position[1],
+                  ],
+                  indexMountain,
+                  index
+                )
+              )
             : null}
         </>
       ))}
-      {/*positions.map((item, index) => (
-        <TreeNamek key={index} position={[item[0], 0 / 2, item[1]]} />
-      ))
-      {positionsTree.map((item, index) => (
-        <TreeNamek key={index} position={[item[0], 0 / 2, item[1]]} />
-      ))}
-      {positionsHouse.map((item, index) => (
-        <House key={index} position={[item[0], 0 / 2, item[1]]} />
-      ))}*/}
     </group>
   );
 };

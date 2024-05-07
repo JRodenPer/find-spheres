@@ -50,8 +50,8 @@ export const Mountain = ({
   );
   const textureBorder = generateTextureFromNoiseMap(
     noiseMapBorder,
-    "green",
-    "#F2B577",
+    "#D98C50",
+    "#8CE0C9",
     true
   );
 
