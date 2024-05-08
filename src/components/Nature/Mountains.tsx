@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   RandodomInfo,
   generateRandomMountainsPos,
-  generateRandomPos,
   getRandomNumber,
 } from "../../helper/randomPositionHelper";
 import {
@@ -19,19 +18,21 @@ import {
 } from "../../constants";
 import { Mountain } from "./Mountain";
 import { TreeNamek } from "./TreeNamek";
-import { House, HouseType, Village } from "../Community";
+import { Village } from "../Community";
 import { ShipCapsule } from "../Ship/ShipCapsule";
 import { ShipFreezer } from "../Ship/ShipFreezer";
 import { ShipNamek } from "../Ship/ShipNamek";
-import { DragonBall } from "../DragonBall";
+import { useMountainsStore } from "../../hooks/useStore";
+import React from "react";
 
-export const Mountains = () => {
+export const Mountains = React.memo(() => {
+  const [addPositionsMountain] = useMountainsStore((state) => [
+    state.addPositionsMountain,
+  ]);
   const [positionsMountain, setPositionsMountain] = useState<RandodomInfo[]>(
     []
   );
-  const [positionsDragonBall, setpositionsDragonBall] = useState<
-    [number, number][]
-  >([]);
+
   useEffect(() => {
     const items: RandodomInfo[] = generateRandomMountainsPos(
       SIZE_GROUND.SIZE_X,
@@ -44,9 +45,11 @@ export const Mountains = () => {
       MOUNTAINS_HEIGHT_MAX
     );
     setPositionsMountain(items);
+    addPositionsMountain(items);
+
+    console.log("render mountains");
   }, []);
 
-  let countDB = 0;
   const renderSubItem = (
     position: [number, number, number],
     index: number,
@@ -65,12 +68,17 @@ export const Mountains = () => {
       }
     }
 
-    return positionsMountain[index].subPositionsItem[subIndex].isDragonBall ? (
-      <DragonBall key={nanoid()} position={position} stars={++countDB} />
-    ) : (
+    const addDragonBall =
+      positionsMountain[index].subPositionsItem[subIndex].isDragonBall;
+
+    return addDragonBall ? null : (
       <TreeNamek key={nanoid()} position={position} />
     );
   };
+
+  useEffect(() => {
+    console.log("El componente Mountains se ha renderizado");
+  });
 
   return (
     <group>
@@ -105,8 +113,60 @@ export const Mountains = () => {
                 )
               )
             : null}
+          <Mountain
+            position={[
+              -1.5 * SIZE_GROUND.SIZE_Y,
+              20,
+              -1.5 * SIZE_GROUND.SIZE_Y,
+            ]}
+            radiusBottom={400}
+            radiusTop={10}
+            height={40}
+          />
+          <Mountain
+            position={[-1.5 * SIZE_GROUND.SIZE_Y, 20, 1.5 * SIZE_GROUND.SIZE_Y]}
+            radiusBottom={400}
+            radiusTop={100}
+            height={40}
+          />
+          <Mountain
+            position={[1.5 * SIZE_GROUND.SIZE_Y, 20, -2 * SIZE_GROUND.SIZE_Y]}
+            radiusBottom={400}
+            radiusTop={100}
+            height={40}
+          />
+          <Mountain
+            position={[1.5 * SIZE_GROUND.SIZE_Y, 20, 1.5 * SIZE_GROUND.SIZE_Y]}
+            radiusBottom={400}
+            radiusTop={10}
+            height={40}
+          />
+          <Mountain
+            position={[-2 * SIZE_GROUND.SIZE_Y, 20, 0]}
+            radiusBottom={400}
+            radiusTop={100}
+            height={40}
+          />
+          <Mountain
+            position={[0, 20, 2 * SIZE_GROUND.SIZE_Y]}
+            radiusBottom={400}
+            radiusTop={10}
+            height={40}
+          />
+          <Mountain
+            position={[2 * SIZE_GROUND.SIZE_Y, 20, 0]}
+            radiusBottom={400}
+            radiusTop={10}
+            height={40}
+          />
+          <Mountain
+            position={[0, 20, -2 * SIZE_GROUND.SIZE_Y]}
+            radiusBottom={400}
+            radiusTop={100}
+            height={40}
+          />
         </>
       ))}
     </group>
   );
-};
+});

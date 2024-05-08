@@ -6,6 +6,7 @@ type ActionsKeyboardMap = {
 
 const ACTIONS_KEYBOARD_MAP: ActionsKeyboardMap = {
   KeyW: "walk",
+  KeyS: "walkBack",
   KeyR: "run",
   KeyF: "fly",
   Space: "jump",
@@ -14,6 +15,7 @@ const ACTIONS_KEYBOARD_MAP: ActionsKeyboardMap = {
 export const useKeyboard = () => {
   const [actions, setActions]: any = useState({
     walk: false,
+    walkBack: false,
     run: false,
     fly: false,
     jump: false,
@@ -45,6 +47,10 @@ export const useKeyboard = () => {
           : setActions((prevActions: any) => ({
               walk:
                 action === ACTIONS_KEYBOARD_MAP.KeyW
+                  ? !prevActions[action]
+                  : false,
+              walkBack:
+                action === ACTIONS_KEYBOARD_MAP.KeyS
                   ? !prevActions[action]
                   : false,
               run:

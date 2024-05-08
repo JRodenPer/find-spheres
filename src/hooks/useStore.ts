@@ -1,44 +1,48 @@
 import { create } from "zustand";
-import { SIZE_GROUND } from "../constants";
 
-export interface IState {
-  positionPlayer: [number, number, number];
-  positions: number[][];
-  setPositionPlayer: (position: [number, number, number]) => void;
-  updatePosition: (position: [number, number, number]) => void;
+export interface IMountainsState {
+  positionsMountain: any;
+  addPositionsMountain: (positionsMountain: any) => void;
 }
 
-function initializeArray<X extends number, Y extends number>(
-  width: X,
-  height: Y
-): number[][] {
-  return Array.from({ length: width }, () =>
-    Array.from({ length: height }, () => 0)
-  );
+export interface ISpheresState {
+  spheres: { pos: [number, number, number]; stars: number }[];
+
+  addSphere: (position: [number, number, number], stars: number) => void;
+  pickSphere: (stars: number) => void;
 }
 
-export const useStore = create<IState>((set) => ({
-  positionPlayer: [0, 0, 0],
-  positions: initializeArray(SIZE_GROUND.SIZE_X, SIZE_GROUND.SIZE_Y),
+export const useMountainsStore = create<IMountainsState>((set) => ({
+  positionsMountain: [],
 
-  updatePosition: (position: [number, number, number]) => {
-    set((state) => {
-      const newPositions = [...state.positions];
+  addPositionsMountain: (positionsMountain: any) => {
+    set(
+      () => ({
+        positionsMountain: [...positionsMountain],
+      }),
+      false
+    );
+  },
+}));
 
-      const [x, height, y] = position;
-      newPositions[x][y] = height + 0.1;
+export const useSpheresStore = create<ISpheresState>((set) => ({
+  spheres: [],
 
-      return {
-        ...state,
-        positions: newPositions,
-      };
-    });
+  addSphere: (position: [number, number, number], stars: number) => {
+    set((state) => ({
+      spheres: [
+        ...state.spheres,
+        {
+          stars,
+          pos: [position[0], position[1], position[2]],
+        },
+      ],
+    }));
   },
 
-  setPositionPlayer: (positionPlayer: [number, number, number]) => {
-    //console.log(positionPlayer);
-    set(() => ({
-      positionPlayer,
+  pickSphere: (stars: number) => {
+    set((state) => ({
+      spheres: state.spheres.filter((sphere) => stars !== sphere.stars),
     }));
   },
 }));

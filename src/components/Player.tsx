@@ -4,19 +4,16 @@ import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
-import { useStore } from "../hooks/useStore";
-import * as THREE from "three";
 import { SIZE_GROUND } from "../constants";
 
-const CHARACTER_SPEED_WALK = 30;
-const CHARACTER_SPEED_RUN = 6;
+const CHARACTER_SPEED_WALK = 4;
+const CHARACTER_SPEED_RUN = 16;
 const CHARACTER_JUMP_FORCE = 4;
 
 export const Player = () => {
-  let { walk, run, fly, jump } = useKeyboard();
+  let { walk, walkBack, run, fly, jump } = useKeyboard();
 
   const { camera } = useThree();
-  const updateCount = useRef(0);
 
   const [ref, api] = useSphere(() => ({
     mass: 1,
@@ -43,12 +40,18 @@ export const Player = () => {
     const direction = new Vector3(
       0,
       0,
-      walk || run ? -(walk ? CHARACTER_SPEED_WALK : CHARACTER_SPEED_RUN) : 0
+      walk || walkBack || run
+        ? walk || walkBack
+          ? -CHARACTER_SPEED_WALK
+          : -CHARACTER_SPEED_RUN
+        : 0
     );
+
+    if (walkBack) direction.z *= -1;
 
     direction.applyEuler(camera.rotation);
 
-    console.log(pos.current);
+    //console.log(pos.current);
 
     if (pos.current[0] > SIZE_GROUND.SIZE_X) {
       pos.current[0] = SIZE_GROUND.SIZE_X;
