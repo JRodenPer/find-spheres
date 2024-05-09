@@ -1,7 +1,13 @@
+import { DragonBallsMenu } from "./components/InfoMenus";
 import World from "./components/World";
 
 const App = () => {
-  return <World />;
+  return (
+    <>
+      <World />
+      <DragonBallsMenu />
+    </>
+  );
 };
 
 export default App;
