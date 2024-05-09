@@ -8,6 +8,7 @@ export interface IMountainsState {
 export interface ISpheresState {
   spheres: { pos: [number, number, number]; stars: number }[];
   lastPicked: number;
+  win: boolean;
 
   addSphere: (position: [number, number, number], stars: number) => void;
   pickSphere: (stars: number) => void;
@@ -29,6 +30,7 @@ export const useMountainsStore = create<IMountainsState>((set) => ({
 export const useSpheresStore = create<ISpheresState>((set) => ({
   spheres: [],
   lastPicked: 0,
+  win: false,
 
   addSphere: (position: [number, number, number], stars: number) => {
     set((state) => ({
@@ -46,6 +48,7 @@ export const useSpheresStore = create<ISpheresState>((set) => ({
     set((state) => ({
       spheres: state.spheres.filter((sphere) => stars !== sphere.stars),
       lastPicked: stars,
+      win: state.spheres.length === 1,
     }));
   },
 }));
