@@ -11,7 +11,7 @@ const CHARACTER_SPEED_RUN = 16;
 const CHARACTER_JUMP_FORCE = 4;
 
 export const Player = () => {
-  let { walk, walkBack, run, fly, jump } = useKeyboard();
+  let { walk, walkBack, run, jump } = useKeyboard();
 
   const { camera } = useThree();
 
