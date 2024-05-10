@@ -2,7 +2,6 @@ import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import { useSpheresStore } from "../../hooks/useStore";
 import * as images from "../../images/images";
-import textures from "../../images/textures";
 
 interface IDragonBall {
   id: string;

@@ -1,17 +1,13 @@
 import React, { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import { Mesh } from "three";
-import {
-  generateNoiseMap,
-  generateTextureFromNoiseMap,
-} from "../../helper/noiseTextureHelper";
+import { Mesh, Texture } from "three";
 
 interface WaterProps {
   position: [number, number, number];
   size: [number, number];
+  texture: Texture;
 }
 
-export const Water = ({ position, size }: WaterProps) => {
+export const Water = ({ position, size, texture }: WaterProps) => {
   const waterRef = useRef<Mesh>();
 
   // Función para animar la superficie del agua
@@ -32,9 +28,6 @@ export const Water = ({ position, size }: WaterProps) => {
       vertices.needsUpdate = true;
     }
   });*/
-
-  const noiseMap = generateNoiseMap(5, 5, 10, 0, 0);
-  const texture = generateTextureFromNoiseMap(noiseMap, "blue", "white");
 
   return (
     <mesh

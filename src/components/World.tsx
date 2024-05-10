@@ -1,15 +1,44 @@
 import { Sky, Stars } from "@react-three/drei";
 import { Physics } from "@react-three/cannon";
 import { Canvas } from "@react-three/fiber";
-import { Ground } from "../components/Nature";
+import { Ground, Water } from "../components/Nature";
 import { FirstPV } from "../components/FirstPV";
 import { Player } from "../components/Player";
 import { Mountains } from "../components/Nature";
 import { DragonBalls } from "./DragonBalls";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  generateNoiseMap,
+  generateTextureFromNoiseMap,
+} from "../helper/noiseTextureHelper";
+import { SIZE_GROUND } from "../constants";
+
+const { SIZE_X, SIZE_Y } = SIZE_GROUND;
 
 const World = () => {
   const groupRef: any = useRef();
+
+  const [textureGround, setTextureGround] = useState<any>(undefined);
+  const [textureWater, setTextureWater] = useState<any>(undefined);
+
+  useEffect(() => {
+    const width = 512;
+    const height = 512;
+    const scale = 100;
+    const offsetX = 0;
+    const offsetY = 0;
+    const noiseMap = generateNoiseMap(width, height, scale, offsetX, offsetY);
+
+    const newTexture = generateTextureFromNoiseMap(noiseMap);
+    setTextureGround(newTexture);
+  }, []);
+
+  useEffect(() => {
+    const noiseMap = generateNoiseMap(5, 5, 10, 0, 0);
+    const newTexture = generateTextureFromNoiseMap(noiseMap, "blue", "white");
+    setTextureWater(newTexture);
+  }, []);
+
   return (
     <>
       <Canvas shadows>
@@ -31,7 +60,12 @@ const World = () => {
 
         <FirstPV />
         <Physics>
-          <Ground />
+          <Ground texture={textureGround} />
+          <Water
+            position={[-SIZE_X - 1, -1, 0]}
+            size={[SIZE_X * 15, SIZE_Y * 15]}
+            texture={textureWater}
+          />
           <Player />
           <DragonBalls />
           <Mountains />

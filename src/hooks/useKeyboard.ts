@@ -8,7 +8,6 @@ const ACTIONS_KEYBOARD_MAP: ActionsKeyboardMap = {
   KeyW: "walk",
   KeyS: "walkBack",
   KeyR: "run",
-  KeyF: "fly",
   Space: "jump",
 };
 
@@ -17,7 +16,6 @@ export const useKeyboard = () => {
     walk: false,
     walkBack: false,
     run: false,
-    fly: false,
     jump: false,
   });
 
@@ -25,7 +23,7 @@ export const useKeyboard = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const { code } = event;
       const action = ACTIONS_KEYBOARD_MAP[code];
-      if (action === "jump" && !actions[action]) {
+      if (action === ACTIONS_KEYBOARD_MAP.Space && !actions[action]) {
         setActions((prevActions: any) => ({
           ...prevActions,
           [action]: true,
@@ -45,6 +43,7 @@ export const useKeyboard = () => {
               [action]: false,
             }))
           : setActions((prevActions: any) => ({
+              jump: false,
               walk:
                 action === ACTIONS_KEYBOARD_MAP.KeyW
                   ? !prevActions[action]
@@ -57,11 +56,6 @@ export const useKeyboard = () => {
                 action === ACTIONS_KEYBOARD_MAP.KeyR
                   ? !prevActions[action]
                   : false,
-              fly:
-                action === ACTIONS_KEYBOARD_MAP.KeyF
-                  ? !prevActions[action]
-                  : false,
-              jump: false,
             }));
       }
     };
