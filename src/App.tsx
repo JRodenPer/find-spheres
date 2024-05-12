@@ -1,4 +1,5 @@
 import { DragonBallsMenu, HelpMenu } from "./components/InfoMenus";
+import { Loading } from "./components/InfoMenus/Loading";
 import World from "./components/World";
 import { useKeyboard } from "./hooks/useKeyboard";
 
@@ -8,6 +9,7 @@ const App = () => {
       <World />
       <DragonBallsMenu />
       <HelpMenu />
+      <Loading />
     </>
   );
 };

@@ -14,7 +14,7 @@ export const DragonBall = ({ position, stars }: DragonBallProps) => {
   const halfHeight = 0.05;
   const [ref] = useBox(() => ({
     type: "Static",
-    position: [position[0], position[1] + halfHeight + 10, position[2]],
+    position: [position[0], position[1] + halfHeight, position[2]],
     scale: [0.1, 0.1, 0.1],
   }));
 
@@ -47,7 +47,7 @@ export const DragonBall = ({ position, stars }: DragonBallProps) => {
         setIsHovered(false);
       }}
     >
-      <sphereGeometry args={[10.05, 24, 24]} attach="geometry" />
+      <sphereGeometry args={[0.05, 24, 24]} attach="geometry" />
       <meshStandardMaterial
         map={texture}
         attach="material"

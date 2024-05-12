@@ -1,10 +1,11 @@
 import { useSphere } from "@react-three/cannon";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Vector3 } from "three";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
 import { SIZE_GROUND } from "../constants";
+import { useLoadingStore } from "../hooks/useStore";
 
 const CHARACTER_SPEED_WALK = 4;
 const CHARACTER_SPEED_RUN = 16;
@@ -12,6 +13,12 @@ const CHARACTER_JUMP_FORCE = 4;
 
 export const Player = () => {
   let { walk, walkBack, run, jump } = useKeyboard();
+  const [loading] = useLoadingStore((state) => [state.loading]);
+  const [setLoading] = useLoadingStore((state) => [state.setLoading]);
+
+  useEffect(() => {
+    console.log("El componente Player se ha renderizado");
+  });
 
   const { camera } = useThree();
 
@@ -26,6 +33,7 @@ export const Player = () => {
   useEffect(() => {
     api.position.subscribe((p) => {
       pos.current = p;
+      if (loading && pos.current[1] < 100) setLoading(false);
     });
   }, [api.position]);
 
@@ -98,5 +106,5 @@ export const Player = () => {
     //console.log(pos.current);
   });
 
-  return <mesh ref={ref as React.MutableRefObject<Mesh>} />;
+  return useMemo(() => <mesh ref={ref as React.MutableRefObject<Mesh>} />, []);
 };

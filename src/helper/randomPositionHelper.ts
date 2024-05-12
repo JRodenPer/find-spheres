@@ -132,6 +132,7 @@ export function generateRandomMountainsPos(
     }
   }
 
+  console.log("Random positions finished");
   return positions;
 }
 
