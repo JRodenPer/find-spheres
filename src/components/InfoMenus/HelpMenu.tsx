@@ -5,15 +5,7 @@ export const HelpMenu: React.FC = () => {
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.key === "h" || event.key === "H") {
-        setIsVisible(!isVisible);
-        if (!isVisible) {
-          const escapeEvent = new KeyboardEvent("keydown", {
-            key: "Escape",
-          });
-          document.dispatchEvent(escapeEvent);
-        }
-      }
+      if (event.key === "h" || event.key === "H") setIsVisible(!isVisible);
     };
 
     document.addEventListener("keydown", handleKeyPress);
@@ -33,14 +25,18 @@ export const HelpMenu: React.FC = () => {
         even jump high against objects in the world, this way you will not
         increase your ki. To make a big jump you just need to run against an
         object.
-        <p>Good luck!</p>
       </p>
+
+      <p>Don't forget use the radar if you cannot find the spheres!</p>
+
+      <p>Good luck!</p>
       <h2>Game commands</h2>
       <p>Mouse: Control the camera movement </p>
       <p>W: Start / stop walking forward</p>
       <p>S: Start / stop walking backwards</p>
       <p>R: Start / stop runnig</p>
       <p>Space: Jump</p>
+      <p>Q: Show / hide radar</p>
       <p>H: Show / hide help menu</p>
     </div>
   );

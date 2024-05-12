@@ -12,6 +12,7 @@ import {
   generateTextureFromNoiseMap,
 } from "../helper/noiseTextureHelper";
 import { SIZE_GROUND } from "../constants";
+import Radar from "./DragonBalls/Radar";
 
 const { SIZE_X, SIZE_Y } = SIZE_GROUND;
 

@@ -5,7 +5,7 @@ import { Vector3 } from "three";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
 import { SIZE_GROUND } from "../constants";
-import { useLoadingStore } from "../hooks/useStore";
+import { useLoadingStore, usePlayerStore } from "../hooks/useStore";
 
 const CHARACTER_SPEED_WALK = 4;
 const CHARACTER_SPEED_RUN = 16;
@@ -15,6 +15,7 @@ export const Player = () => {
   let { walk, walkBack, run, jump } = useKeyboard();
   const [loading] = useLoadingStore((state) => [state.loading]);
   const [setLoading] = useLoadingStore((state) => [state.setLoading]);
+  const [setPosition] = usePlayerStore((state) => [state.setPosition]);
 
   useEffect(() => {
     console.log("El componente Player se ha renderizado");
@@ -34,6 +35,7 @@ export const Player = () => {
     api.position.subscribe((p) => {
       pos.current = p;
       if (loading && pos.current[1] < 100) setLoading(false);
+      setPosition(p);
     });
   }, [api.position]);
 
