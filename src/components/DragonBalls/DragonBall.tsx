@@ -47,7 +47,7 @@ export const DragonBall = ({ position, stars }: DragonBallProps) => {
         setIsHovered(false);
       }}
     >
-      <sphereGeometry args={[10.05, 24, 24]} attach="geometry" />
+      <sphereGeometry args={[0.05, 24, 24]} attach="geometry" />
       <meshStandardMaterial
         map={texture}
         attach="material"

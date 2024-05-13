@@ -59,8 +59,19 @@ const Radar: React.FC = () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
   }, [isVisible]);
+
+  useEffect(() => {
+    const audioElement = document.getElementById("audio") as HTMLAudioElement;
+    if (isVisible) {
+      audioElement.play();
+    } else {
+      audioElement.pause();
+    }
+  }, [isVisible]);
+
   return (
     <div className="radar-map-container" hidden={!isVisible}>
+      <audio id="audio" src="/sounds/radarSound.mp3" loop></audio>
       <div className="radar-map">
         <div className="grid-background" />
         <div className="map-container">
