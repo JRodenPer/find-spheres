@@ -20,7 +20,9 @@ export interface ILoadingState {
 
 export interface IPlayerState {
   position: [number, number, number];
+  direction: [number, number];
   setPosition: (position: [number, number, number]) => void;
+  setDirection: (direction: [number, number]) => void;
 }
 
 export const useMountainsStore = create<IMountainsState>((set) => ({
@@ -74,10 +76,16 @@ export const useLoadingStore = create<ILoadingState>((set) => ({
 
 export const usePlayerStore = create<IPlayerState>((set) => ({
   position: [0, 0, 0],
+  direction: [0, 1],
 
   setPosition: (position: [number, number, number]) => {
-    set((state) => ({
+    set(() => ({
       position: [position[0], position[1], position[2]],
+    }));
+  },
+  setDirection: (direction: [number, number]) => {
+    set(() => ({
+      direction: [direction[0], direction[1]],
     }));
   },
 }));

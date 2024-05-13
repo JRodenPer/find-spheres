@@ -16,10 +16,11 @@ export const Player = () => {
   const [loading] = useLoadingStore((state) => [state.loading]);
   const [setLoading] = useLoadingStore((state) => [state.setLoading]);
   const [setPosition] = usePlayerStore((state) => [state.setPosition]);
+  const [setDirection] = usePlayerStore((state) => [state.setDirection]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("El componente Player se ha renderizado");
-  });
+  });*/
 
   const { camera } = useThree();
 
@@ -36,6 +37,9 @@ export const Player = () => {
       pos.current = p;
       if (loading && pos.current[1] < 100) setLoading(false);
       setPosition(p);
+      const cameraDirection = new Vector3(0, 0, -1);
+      cameraDirection.applyQuaternion(camera.quaternion);
+      setDirection([cameraDirection.x, cameraDirection.z]);
     });
   }, [api.position]);
 

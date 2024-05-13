@@ -76,9 +76,9 @@ export const Mountains = React.memo(() => {
     );
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("El componente Mountains se ha renderizado");
-  });
+  });*/
 
   return (
     <group>
