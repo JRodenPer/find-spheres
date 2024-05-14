@@ -1,3 +1,4 @@
+import { Vector2, Vector3 } from "three";
 import { create } from "zustand";
 
 export interface IMountainsState {
@@ -6,10 +7,10 @@ export interface IMountainsState {
 }
 
 export interface ISpheresState {
-  spheres: { pos: [number, number, number]; stars: number }[];
+  spheres: { pos: Vector3; stars: number }[];
   lastPicked: number;
   win: boolean;
-  addSphere: (position: [number, number, number], stars: number) => void;
+  addSphere: (position: Vector3, stars: number) => void;
   pickSphere: (stars: number) => void;
 }
 
@@ -19,10 +20,10 @@ export interface ILoadingState {
 }
 
 export interface IPlayerState {
-  position: [number, number, number];
-  direction: [number, number];
-  setPosition: (position: [number, number, number]) => void;
-  setDirection: (direction: [number, number]) => void;
+  position: Vector3;
+  direction: Vector2;
+  setPosition: (position: Vector3) => void;
+  setDirection: (direction: Vector2) => void;
 }
 
 export const useMountainsStore = create<IMountainsState>((set) => ({
@@ -43,13 +44,13 @@ export const useSpheresStore = create<ISpheresState>((set) => ({
   lastPicked: 0,
   win: false,
 
-  addSphere: (position: [number, number, number], stars: number) => {
+  addSphere: (position: Vector3, stars: number) => {
     set((state) => ({
       spheres: [
         ...state.spheres,
         {
           stars,
-          pos: [position[0], position[1], position[2]],
+          pos: new Vector3(position.x, position.y, position.z),
         },
       ],
     }));
@@ -75,17 +76,17 @@ export const useLoadingStore = create<ILoadingState>((set) => ({
 }));
 
 export const usePlayerStore = create<IPlayerState>((set) => ({
-  position: [0, 0, 0],
-  direction: [0, 1],
+  position: new Vector3(0, 0, 0),
+  direction: new Vector2(0, 1),
 
-  setPosition: (position: [number, number, number]) => {
+  setPosition: (position: Vector3) => {
     set(() => ({
-      position: [position[0], position[1], position[2]],
+      position: new Vector3(position.x, position.y, position.z),
     }));
   },
-  setDirection: (direction: [number, number]) => {
+  setDirection: (direction: Vector2) => {
     set(() => ({
-      direction: [direction[0], direction[1]],
+      direction: new Vector2(direction.x, direction.y),
     }));
   },
 }));

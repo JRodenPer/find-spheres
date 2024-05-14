@@ -1,6 +1,6 @@
 import { useMemo, useRef } from "react";
 import { useConvexPolyhedron } from "@react-three/cannon";
-import { CylinderGeometry, Mesh } from "three";
+import { CylinderGeometry, Mesh, Vector3 } from "three";
 import { Cylinder } from "@react-three/drei";
 import { Geometry } from "three-stdlib";
 import {
@@ -9,7 +9,7 @@ import {
 } from "../../helper/noiseTextureHelper";
 
 interface MountainProps {
-  position: [number, number, number];
+  position: Vector3;
   radiusTop: number;
   radiusBottom: number;
   height: number;
@@ -37,7 +37,12 @@ export const Mountain = ({
     return toConvexProps(geometry);
   }, [height, radiusBottom, radiusTop]);
   const [ref] = useConvexPolyhedron(
-    () => ({ args, mass: 1, position, type: "Static" }),
+    () => ({
+      args,
+      mass: 1,
+      position: [position.x, position.y, position.z],
+      type: "Static",
+    }),
     useRef<Mesh>(null)
   );
 

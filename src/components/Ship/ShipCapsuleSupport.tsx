@@ -1,15 +1,15 @@
-import { Mesh } from "three";
+import { Mesh, Vector3 } from "three";
 import { useSphere } from "@react-three/cannon";
 import { Cylinder, Sphere } from "@react-three/drei";
 
 interface ShipProps {
-  position: [number, number, number];
+  position: Vector3;
 }
 
 export const ShipCapsuleSupport = ({ position }: ShipProps) => {
   const [ref] = useSphere(() => ({
     type: "Static",
-    position,
+    position: [position.x, position.y, position.z],
     args: [1],
   }));
 
@@ -33,8 +33,8 @@ export const ShipCapsuleSupport = ({ position }: ShipProps) => {
         receiveShadow
         castShadow
         args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
-        scale={[0.1, 0.01, 0.1]}
-        position={[0, -0.1, 0]}
+        position={new Vector3(0, -0.1, 0)}
+        scale={new Vector3(0.1, 0.01, 0.1)}
       >
         <meshStandardMaterial
           attach="material"

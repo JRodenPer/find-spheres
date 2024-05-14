@@ -1,14 +1,15 @@
 import { Sphere } from "@react-three/drei";
+import { Vector3 } from "three";
 
 interface SkylightProps {
-  position: [number, number, number];
-  scale?: [number, number, number];
+  position: Vector3;
+  scale?: Vector3;
   color?: string;
 }
 
 export const Skylight = ({
   position,
-  scale = [1, 1, 1],
+  scale = new Vector3(1, 1, 1),
   color = "cyan",
 }: SkylightProps) => {
   return (

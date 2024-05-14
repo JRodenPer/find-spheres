@@ -1,17 +1,17 @@
 import { useBox } from "@react-three/cannon";
-import { Mesh } from "three";
-import { Cone, Cylinder, Sphere } from "@react-three/drei";
+import { Mesh, Vector3 } from "three";
+import { Cylinder, Sphere } from "@react-three/drei";
 import textures from "../../images/textures";
 
 interface HouseProps {
-  position: [number, number, number];
+  position: Vector3;
   height: number;
 }
 
 export const TreeNamek = ({ position, height }: HouseProps) => {
   const [ref] = useBox(() => ({
     type: "Static",
-    position,
+    position: [position.x, position.y, position.z],
     args: [1, 1, 1],
   }));
 

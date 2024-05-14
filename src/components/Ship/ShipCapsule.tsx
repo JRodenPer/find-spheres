@@ -1,23 +1,23 @@
 import { nanoid } from "nanoid";
-import { Mesh } from "three";
+import { Euler, Mesh, Vector3 } from "three";
 import { useSphere } from "@react-three/cannon";
 import { Cylinder, Sphere } from "@react-three/drei";
 import textures from "../../images/textures";
 import { ShipCapsuleSupport } from "./ShipCapsuleSupport";
 import { Door, Skylight } from "../Accesories";
 
-const POSITIONS: [number, number, number][] = [
-  [-0.5, -0.25, 0],
-  [-0.3, -0.25, 0.4],
-  [-0.3, -0.25, -0.4],
-  [0.5, -0.25, 0],
-  [0.3, -0.25, 0.4],
-  [0.3, -0.25, -0.4],
+const POSITIONS: Vector3[] = [
+  new Vector3(-0.5, -0.25, 0),
+  new Vector3(-0.3, -0.25, 0.4),
+  new Vector3(-0.3, -0.25, -0.4),
+  new Vector3(0.5, -0.25, 0),
+  new Vector3(0.3, -0.25, 0.4),
+  new Vector3(0.3, -0.25, -0.4),
 ];
 
-const SCALE: [number, number, number] = [0.1, 0.1, 0.1];
+const SCALE: Vector3 = new Vector3(0.1, 0.1, 0.1);
 interface ShipProps {
-  position: [number, number, number];
+  position: Vector3;
 }
 
 export const ShipCapsule = ({ position }: ShipProps) => {
@@ -26,9 +26,9 @@ export const ShipCapsule = ({ position }: ShipProps) => {
   const [ref] = useSphere(() => ({
     type: "Static",
     position: [
-      position[0],
-      position[1] + halfHeight + shipCapsuleSupportHeight / 2,
-      position[2],
+      position.x,
+      position.y + halfHeight + shipCapsuleSupportHeight / 2,
+      position.z,
     ],
     args: [1],
   }));
@@ -53,9 +53,9 @@ export const ShipCapsule = ({ position }: ShipProps) => {
       <Cylinder
         receiveShadow
         castShadow
-        scale={[0.6, 0.01, 0.1]}
-        rotation={[0, Math.PI / 4, 0]}
-        position={[0, -0.5, 0]}
+        position={new Vector3(0, -0.5, 0)}
+        scale={new Vector3(0.6, 0.01, 0.1)}
+        rotation={new Euler(0, Math.PI / 4, 0)}
       >
         <meshStandardMaterial
           attach="material"
@@ -68,9 +68,9 @@ export const ShipCapsule = ({ position }: ShipProps) => {
       <Cylinder
         receiveShadow
         castShadow
-        scale={[0.6, 0.01, 0.1]}
-        rotation={[0, -Math.PI / 4, 0]}
-        position={[0, -0.5, 0]}
+        position={new Vector3(0, -0.5, 0)}
+        scale={new Vector3(0.6, 0.01, 0.1)}
+        rotation={new Euler(0, -Math.PI / 4, 0)}
       >
         <meshStandardMaterial
           attach="material"
@@ -79,16 +79,16 @@ export const ShipCapsule = ({ position }: ShipProps) => {
           roughness={0}
         />
       </Cylinder>
-      <ShipCapsuleSupport position={[-0.4, -0.6, -0.4]} />
-      <ShipCapsuleSupport position={[-0.4, -0.6, 0.4]} />
-      <ShipCapsuleSupport position={[0.4, -0.6, 0.4]} />
-      <ShipCapsuleSupport position={[0.4, -0.6, -0.4]} />
+      <ShipCapsuleSupport position={new Vector3(-0.4, -0.6, -0.4)} />
+      <ShipCapsuleSupport position={new Vector3(-0.4, -0.6, 0.4)} />
+      <ShipCapsuleSupport position={new Vector3(0.4, -0.6, 0.4)} />
+      <ShipCapsuleSupport position={new Vector3(0.4, -0.6, -0.4)} />
 
       <Door
-        position={[0.0, -0.15, 0.51]}
+        position={new Vector3(0.0, -0.15, 0.51)}
         scale={0.45}
         window={false}
-        rotation={[Math.PI / 8, 0, 0]}
+        rotation={new Euler(Math.PI / 8, 0, 0)}
         color={"#F6F6F6"}
         colorBorder={"#000850"}
       />

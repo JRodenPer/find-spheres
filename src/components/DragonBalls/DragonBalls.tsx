@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { DragonBall } from "./DragonBall";
 import { useSpheresStore, useMountainsStore } from "../../hooks/useStore";
 import { useEffect } from "react";
+import { Vector2, Vector3 } from "three";
 
 export const DragonBalls = () => {
   const [spheres] = useSpheresStore((state) => [state.spheres]);
@@ -13,19 +14,26 @@ export const DragonBalls = () => {
   useEffect(() => {
     let count = 0;
 
-    positionsMountain?.forEach((item: any) => {
-      item.subPositionsItem?.forEach((subItem: any) => {
-        const position: [number, number, number] = [
-          subItem.position[0],
-          item.position[1] * 2 + 0.1,
-          subItem.position[1],
-        ];
+    positionsMountain?.forEach(
+      (item: {
+        position: Vector3;
+        subPositionsItem: { position: Vector2; isDragonBall: boolean }[];
+      }) => {
+        item.subPositionsItem?.forEach(
+          (subItem: { position: Vector2; isDragonBall: boolean }) => {
+            const position = new Vector3(
+              subItem.position.x,
+              item.position.y * 2 + 0.1,
+              subItem.position.y
+            );
 
-        if (subItem.isDragonBall) {
-          addSphere(position, ++count);
-        }
-      });
-    });
+            if (subItem.isDragonBall) {
+              addSphere(position, ++count);
+            }
+          }
+        );
+      }
+    );
   }, [positionsMountain]);
 
   return (

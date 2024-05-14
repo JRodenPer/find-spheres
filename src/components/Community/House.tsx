@@ -1,6 +1,7 @@
 import { HouseSmall } from "./HouseSmall";
 import { HouseMid } from "./HouseMid";
 import { HouseBig } from "./HouseBig";
+import { Vector3 } from "three";
 
 export enum HouseType {
   Small,
@@ -10,7 +11,7 @@ export enum HouseType {
 
 interface HouseProps {
   type: HouseType;
-  position: [number, number, number];
+  position: Vector3;
 }
 
 export const House = ({ type, position }: HouseProps) => {

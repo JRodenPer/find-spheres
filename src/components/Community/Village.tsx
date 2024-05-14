@@ -6,16 +6,17 @@ import { useEffect, useState } from "react";
 import { generateRandomPos } from "../../helper/randomPositionHelper";
 import { House, HouseType } from "./House";
 import { HOUSE_SPACE } from "../../constants";
+import { Vector2, Vector3 } from "three";
 
 interface VillageProps {
   housesCount: number;
-  position: [number, number, number];
+  position: Vector3;
 }
 
 export const Village = ({ housesCount, position }: VillageProps) => {
-  const [posHouseSmall, setPosHouseSmall] = useState<[number, number][]>([]);
-  const [posHouseMid, setPosHouseMid] = useState<[number, number][]>([]);
-  const [posHouseBig, setPosHouseBig] = useState<[number, number][]>([]);
+  const [posHouseSmall, setPosHouseSmall] = useState<Vector2[]>([]);
+  const [posHouseMid, setPosHouseMid] = useState<Vector2[]>([]);
+  const [posHouseBig, setPosHouseBig] = useState<Vector2[]>([]);
 
   useEffect(() => {
     const positionsSmall = generateRandomPos(
@@ -51,11 +52,13 @@ export const Village = ({ housesCount, position }: VillageProps) => {
         <House
           key={nanoid()}
           type={HouseType.Small}
-          position={[
-            position[0] - housesCount + item[0],
-            position[1],
-            position[2] - housesCount + item[1],
-          ]}
+          position={
+            new Vector3(
+              position.x - housesCount + item.x,
+              position.y,
+              position.z - housesCount + item.y
+            )
+          }
         />
       ))}
 
@@ -63,11 +66,13 @@ export const Village = ({ housesCount, position }: VillageProps) => {
         <House
           key={nanoid()}
           type={HouseType.Mid}
-          position={[
-            position[0] - housesCount + item[0],
-            position[1],
-            position[2] - housesCount + item[1],
-          ]}
+          position={
+            new Vector3(
+              position.x - housesCount + item.x,
+              position.y,
+              position.z - housesCount + item.y
+            )
+          }
         />
       ))}
 
@@ -75,11 +80,13 @@ export const Village = ({ housesCount, position }: VillageProps) => {
         <House
           key={nanoid()}
           type={HouseType.Big}
-          position={[
-            position[0] - housesCount + item[0],
-            position[1],
-            position[2] - housesCount + item[1],
-          ]}
+          position={
+            new Vector3(
+              position.x - housesCount + item.x,
+              position.y,
+              position.z - housesCount + item.y
+            )
+          }
         />
       ))}
     </>
