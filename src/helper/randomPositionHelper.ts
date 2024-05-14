@@ -219,6 +219,12 @@ export function getPositionsInCircle(
   return positionsInCircle;
 }
 
-export function getRandomNumber(max: number, min: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+export function getRandomNumber(
+  max: number,
+  min: number,
+  integer: boolean = true
+) {
+  return integer
+    ? Math.floor(Math.random() * (max - min + 1)) + min
+    : Math.random() * (max - min) + min;
 }

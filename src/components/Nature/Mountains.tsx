@@ -15,6 +15,8 @@ import {
   SIZE_GROUND,
   HOUSE_COUNT,
   PERCENT_SUB_ITEMS,
+  TREE_HEIGHT_MAX,
+  TREE_HEIGHT_MIN,
 } from "../../constants";
 import { Mountain } from "./Mountain";
 import { TreeNamek } from "./TreeNamek";
@@ -41,8 +43,8 @@ export const Mountains = React.memo(() => {
       PERCENT_SUB_ITEMS,
       MOUNTAINS_RADIUS_MIN,
       MOUNTAINS_RADIUS_MAX,
-      MOUNTAINS_HEIGHT_MIN,
-      MOUNTAINS_HEIGHT_MAX
+      MOUNTAINS_HEIGHT_MAX,
+      MOUNTAINS_HEIGHT_MIN
     );
     setPositionsMountain(items);
     addPositionsMountain(items);
@@ -72,7 +74,11 @@ export const Mountains = React.memo(() => {
       positionsMountain[index].subPositionsItem[subIndex].isDragonBall;
 
     return addDragonBall ? null : (
-      <TreeNamek key={nanoid()} position={position} />
+      <TreeNamek
+        key={nanoid()}
+        position={position}
+        height={getRandomNumber(TREE_HEIGHT_MAX, TREE_HEIGHT_MIN, false)}
+      />
     );
   };
 
