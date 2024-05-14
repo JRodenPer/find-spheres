@@ -1,23 +1,23 @@
 import { nanoid } from "nanoid";
-import { Mesh } from "three";
+import { Euler, Mesh, Vector3 } from "three";
 import { useSphere } from "@react-three/cannon";
 import { Sphere } from "@react-three/drei";
 import { Skylight, ConeDecoration } from "../Accesories";
 
-const POSITIONS: [number, number, number][] = [
-  [0, 0, 0.5],
-  [-0.15, -0.1, 0.45],
-  [0.15, -0.1, 0.45],
+const POSITIONS: Vector3[] = [
+  new Vector3(0, 0, 0.5),
+  new Vector3(-0.15, -0.1, 0.45),
+  new Vector3(0.15, -0.1, 0.45),
 ];
 
-const SCALE: [number, number, number][] = [
-  [0.15, 0.15, 0.15],
-  [0.1, 0.1, 0.1],
-  [0.1, 0.1, 0.1],
+const SCALE: Vector3[] = [
+  new Vector3(0.15, 0.15, 0.15),
+  new Vector3(0.1, 0.1, 0.1),
+  new Vector3(0.1, 0.1, 0.1),
 ];
 
 interface ShipNamekProps {
-  position: [number, number, number];
+  position: Vector3;
 }
 
 export const ShipNamek = ({ position }: ShipNamekProps) => {
@@ -26,7 +26,7 @@ export const ShipNamek = ({ position }: ShipNamekProps) => {
   const [ref] = useSphere(() => ({
     mass: 1,
     type: "Static",
-    position: [position[0], position[1] + halfHeight, position[2]],
+    position: [position.x, position.y + halfHeight, position.z],
     args: [1],
   }));
 
@@ -36,7 +36,7 @@ export const ShipNamek = ({ position }: ShipNamekProps) => {
         receiveShadow
         castShadow
         args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
-        scale={[0.4, 0.4, 0.6]}
+        scale={new Vector3(0.4, 0.4, 0.6)}
       >
         <meshStandardMaterial
           attach="material"
@@ -50,8 +50,8 @@ export const ShipNamek = ({ position }: ShipNamekProps) => {
         receiveShadow
         castShadow
         args={[1, 64, 64, Math.PI, 2 * Math.PI, 0, Math.PI]}
-        scale={[0.2, 0.2, 0.4]}
-        position={[0, 0.3, 0]}
+        position={new Vector3(0, 0.3, 0)}
+        scale={new Vector3(0.2, 0.2, 0.4)}
       >
         <meshStandardMaterial
           attach="material"
@@ -66,57 +66,57 @@ export const ShipNamek = ({ position }: ShipNamekProps) => {
       ))}
 
       <ConeDecoration
-        position={[0.3, -0.35, 0.3]}
-        scale={[0.05, 0.5, 0.05]}
-        rotation={[0, 0, (9 * Math.PI) / 8]}
+        position={new Vector3(0.3, -0.35, 0.3)}
+        scale={new Vector3(0.05, 0.5, 0.05)}
+        rotation={new Euler(0, 0, (9 * Math.PI) / 8)}
       />
 
       <ConeDecoration
-        position={[-0.3, -0.35, 0.3]}
-        scale={[0.05, 0.5, 0.05]}
-        rotation={[0, 0, (7 * Math.PI) / 8]}
+        position={new Vector3(-0.3, -0.35, 0.3)}
+        scale={new Vector3(0.05, 0.5, 0.05)}
+        rotation={new Euler(0, 0, (7 * Math.PI) / 8)}
       />
 
       <ConeDecoration
-        position={[0.3, -0.35, -0.3]}
-        scale={[0.05, 0.5, 0.05]}
-        rotation={[0, 0, (9 * Math.PI) / 8]}
+        position={new Vector3(0.3, -0.35, -0.3)}
+        scale={new Vector3(0.05, 0.5, 0.05)}
+        rotation={new Euler(0, 0, (9 * Math.PI) / 8)}
       />
 
       <ConeDecoration
-        position={[-0.3, -0.35, -0.3]}
-        scale={[0.05, 0.5, 0.05]}
-        rotation={[0, 0, (7 * Math.PI) / 8]}
+        position={new Vector3(-0.3, -0.35, -0.3)}
+        scale={new Vector3(0.05, 0.5, 0.05)}
+        rotation={new Euler(0, 0, (7 * Math.PI) / 8)}
       />
 
       <ConeDecoration
-        position={[0.3, 0, 0.5]}
-        scale={[0.05, 0.3, 0.05]}
-        rotation={[0, 0, -Math.PI / 2]}
+        position={new Vector3(0.3, 0, 0.5)}
+        scale={new Vector3(0.05, 0.3, 0.05)}
+        rotation={new Euler(0, 0, -Math.PI / 2)}
       />
 
       <ConeDecoration
-        position={[-0.3, 0, 0.5]}
-        scale={[0.05, 0.3, 0.05]}
-        rotation={[0, 0, Math.PI / 2]}
+        position={new Vector3(-0.3, 0, 0.5)}
+        scale={new Vector3(0.05, 0.3, 0.05)}
+        rotation={new Euler(0, 0, Math.PI / 2)}
       />
 
       <ConeDecoration
-        position={[0.3, 0.25, 0.5]}
-        scale={[0.05, 0.5, 0.05]}
-        rotation={[0, 0, -Math.PI / 4]}
+        position={new Vector3(0.3, 0.25, 0.5)}
+        scale={new Vector3(0.05, 0.5, 0.05)}
+        rotation={new Euler(0, 0, -Math.PI / 4)}
       />
 
       <ConeDecoration
-        position={[-0.3, 0.25, 0.5]}
-        scale={[0.05, 0.5, 0.05]}
-        rotation={[0, 0, Math.PI / 4]}
+        position={new Vector3(-0.3, 0.25, 0.5)}
+        scale={new Vector3(0.05, 0.5, 0.05)}
+        rotation={new Euler(0, 0, Math.PI / 4)}
       />
 
       <ConeDecoration
-        position={[0, 0.25, -0.6]}
-        scale={[0.05, 0.4, 0.05]}
-        rotation={[-Math.PI / 4, 0, 0]}
+        position={new Vector3(0, 0.25, -0.6)}
+        scale={new Vector3(0.05, 0.4, 0.05)}
+        rotation={new Euler(-Math.PI / 4, 0, 0)}
       />
     </mesh>
   );

@@ -1,4 +1,4 @@
-import { Mesh } from "three";
+import { Mesh, Vector3 } from "three";
 import { useEffect, useState } from "react";
 import { useBox } from "@react-three/cannon";
 import textures from "../../images/textures";
@@ -6,7 +6,7 @@ import { useSpheresStore } from "../../hooks/useStore";
 import { ThreeEvent } from "@react-three/fiber";
 
 interface DragonBallProps {
-  position: [number, number, number];
+  position: Vector3;
   stars: number;
 }
 
@@ -14,7 +14,7 @@ export const DragonBall = ({ position, stars }: DragonBallProps) => {
   const halfHeight = 0.05;
   const [ref] = useBox(() => ({
     type: "Static",
-    position: [position[0], position[1] + halfHeight, position[2]],
+    position: [position.x, position.y + halfHeight, position.z],
     scale: [0.1, 0.1, 0.1],
   }));
 

@@ -1,22 +1,22 @@
-import { Mesh } from "three";
+import { Euler, Mesh, Vector3 } from "three";
 import { useSphere } from "@react-three/cannon";
 import { Box, Cone, Sphere } from "@react-three/drei";
 import { Skylight } from "../Accesories";
 
 interface ShipProps {
-  position: [number, number, number];
-  rotation?: [number, number, number];
+  position: Vector3;
+  rotation?: Euler;
   separator?: boolean;
 }
 
 export const ShipFreezerSupport = ({
   position,
-  rotation = [0, Math.PI / 2, 0],
+  rotation = new Euler(0, Math.PI / 2, 0),
   separator = true,
 }: ShipProps) => {
   const [ref] = useSphere(() => ({
     type: "Static",
-    position,
+    position: [position.x, position.y, position.z],
     args: [1],
   }));
 
@@ -30,9 +30,9 @@ export const ShipFreezerSupport = ({
         <Box
           receiveShadow
           castShadow
-          scale={[2.45, 0.03, 0.2]}
-          rotation={[0, 0, Math.PI / 28]}
-          position={[-4, -0.35, 0]}
+          position={new Vector3(-4, -0.35, 0)}
+          scale={new Vector3(2.45, 0.03, 0.2)}
+          rotation={new Euler(0, 0, Math.PI / 28)}
         >
           <meshStandardMaterial
             attach="material"
@@ -45,9 +45,9 @@ export const ShipFreezerSupport = ({
         <Cone
           receiveShadow
           castShadow
-          position={[-5.2, -0.6, 0]}
-          scale={[0.02, 0.2, 0.06]}
-          rotation={[0, 0, Math.PI]}
+          position={new Vector3(-5.2, -0.6, 0)}
+          scale={new Vector3(0.02, 0.2, 0.06)}
+          rotation={new Euler(0, 0, Math.PI)}
         >
           <meshStandardMaterial
             attach="material"
@@ -57,14 +57,17 @@ export const ShipFreezerSupport = ({
           />
         </Cone>
 
-        <Skylight position={[-4.85, -0.02, 0]} scale={[0.2, 0.2, 0.3]} />
+        <Skylight
+          position={new Vector3(-4.85, -0.02, 0)}
+          scale={new Vector3(0.2, 0.2, 0.3)}
+        />
 
         {separator ? (
           <Sphere
             receiveShadow
             castShadow
-            position={[-4.5, -0.02, -1.2]}
-            scale={[0.5, 0.5, 0.3]}
+            position={new Vector3(-4.5, -0.02, -1.2)}
+            scale={new Vector3(0.5, 0.5, 0.3)}
           >
             <meshStandardMaterial
               attach="material"

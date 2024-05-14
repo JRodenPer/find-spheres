@@ -1,16 +1,17 @@
-import { Cone, Sphere } from "@react-three/drei";
+import { Cone } from "@react-three/drei";
+import { Euler, Vector3 } from "three";
 
 interface ConeDecorationProps {
-  position: [number, number, number];
-  rotation?: [number, number, number];
-  scale?: [number, number, number];
+  position: Vector3;
+  rotation?: Euler;
+  scale?: Vector3;
   color?: string;
 }
 
 export const ConeDecoration = ({
   position,
-  rotation = [0, 0, 0],
-  scale = [1, 1, 1],
+  rotation = new Euler(0, 0, 0),
+  scale = new Vector3(1, 1, 1),
   color = "white",
 }: ConeDecorationProps) => {
   return (

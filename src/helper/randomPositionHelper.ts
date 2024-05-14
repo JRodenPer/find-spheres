@@ -1,41 +1,32 @@
+import { Vector2, Vector3 } from "three";
 import {
   MOUNTAINS_RADIUS_BOTTOM_PERCENT,
   VILLAGE_PER_MOUNTAIN_COUNT,
 } from "../constants";
 
-type Range = [number, number];
-type Position = [number, number];
-//export type RandodomInfo = [number, number, number, number];
-
 export interface RandodomInfo {
-  position: [number, number, number];
+  position: Vector3;
   radius: number;
   height: number;
-  subPositionsVillage: [number, number][];
-  subPositionsItem: { position: [number, number]; isDragonBall: boolean }[];
+  subPositionsVillage: Vector2[];
+  subPositionsItem: { position: Vector2; isDragonBall: boolean }[];
 }
 
 function isPointInsideCircle(
-  center: [number, number],
+  center: Vector2,
   radius: number,
-  point: [number, number]
+  point: Vector2
 ): boolean {
-  return (
-    (point[0] - center[0]) ** 2 + (point[1] - center[1]) ** 2 <= radius ** 2
-  );
+  return (point.x - center.x) ** 2 + (point.y - center.y) ** 2 <= radius ** 2;
 }
 
-function getRandomNumbersInRange(
-  range1: Range,
-  range2: Range
-): [number, number] {
-  const [min1, max1] = range1;
-  const [min2, max2] = range2;
+function getRandomNumbersInRange(range1: Vector2, range2: Vector2): Vector2 {
+  const random1 =
+    Math.floor(Math.random() * (range1.y - range1.x + 1)) + range1.x;
+  const random2 =
+    Math.floor(Math.random() * (range2.y - range2.x + 1)) + range2.x;
 
-  const random1 = Math.floor(Math.random() * (max1 - min1 + 1)) + min1;
-  const random2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
-
-  return [random1, random2];
+  return new Vector2(random1, random2);
 }
 
 export function generateRandomMountainsPos(
@@ -54,13 +45,15 @@ export function generateRandomMountainsPos(
   for (let i = 0; i < numPositions; i++) {
     const x = Math.floor(Math.random() * gridWidth);
     const y = Math.floor(Math.random() * gridHeight);
-    const [radius, height] = getRandomNumbersInRange(
-      [i === 0 ? radiusMin * 3 : radiusMin, radiusMax],
-      [heightMin, heightMax]
+    const randomItem = getRandomNumbersInRange(
+      new Vector2(i === 0 ? radiusMin * 3 : radiusMin, radiusMax),
+      new Vector2(heightMin, heightMax)
     );
+    const radius = randomItem.x;
+    const height = randomItem.y;
 
     positions.push({
-      position: [x - gridWidth / 2, height / 2, y - gridHeight / 2],
+      position: new Vector3(x - gridWidth / 2, height / 2, y - gridHeight / 2),
       radius,
       height,
       subPositionsVillage: [],
@@ -81,10 +74,10 @@ export function generateRandomMountainsPos(
       const x = getRandomNumber(activeDistance, 0);
       const y = getRandomNumber(activeDistance, 0);
 
-      const subPosition: [number, number] = [
-        centerPos[0] - activeDistance / 2 + x,
-        centerPos[2] - activeDistance / 2 + y,
-      ];
+      const subPosition = new Vector2(
+        centerPos.x - activeDistance / 2 + x,
+        centerPos.z - activeDistance / 2 + y
+      );
 
       // check valid position
       let isValid = true;
@@ -93,7 +86,7 @@ export function generateRandomMountainsPos(
         const radiusCheck =
           positions[k].radius * MOUNTAINS_RADIUS_BOTTOM_PERCENT;
         const checkPosition = isPointInsideCircle(
-          [centerPosCheck[0], centerPosCheck[2]],
+          new Vector2(centerPosCheck.x, centerPosCheck.z),
           radiusCheck,
           subPosition
         );
@@ -136,30 +129,14 @@ export function generateRandomMountainsPos(
   return positions;
 }
 
-/*export function generateRandomPos(
-  gridWidth: number,
-  gridHeight: number,
-  numPositions: number
-): Position[] {
-  const positions: Position[] = [];
-
-  for (let i = 0; i < numPositions; i++) {
-    const x = Math.floor(Math.random() * gridWidth);
-    const y = Math.floor(Math.random() * gridHeight);
-    positions.push([x - gridWidth / 2, y - gridHeight / 2]);
-  }
-
-  return positions;
-}*/
-
 export function generateRandomPos(
   gridWidth: number,
   gridHeight: number,
   numPositions: number,
   minDistance: number,
   maxAttempts: number
-): Position[] {
-  const positions: Position[] = [];
+): Vector2[] {
+  const positions: Vector2[] = [];
 
   const minDistanceSquared = minDistance * minDistance;
 
@@ -170,9 +147,9 @@ export function generateRandomPos(
       y: number = 0;
 
     const isValidPosition = (): boolean => {
-      return positions.every(([px, py]) => {
-        const dx = x - px;
-        const dy = y - py;
+      return positions.every((position) => {
+        const dx = x - position.x;
+        const dy = y - position.y;
         const distanceSquared = dx * dx + dy * dy;
         return distanceSquared >= minDistanceSquared;
       });
@@ -191,7 +168,7 @@ export function generateRandomPos(
       break;
     }
 
-    positions.push([x, y]);
+    positions.push(new Vector2(x, y));
   }
 
   return positions;
@@ -200,18 +177,18 @@ export function generateRandomPos(
 export function getPositionsInCircle(
   gridWidth: number,
   gridHeight: number,
-  center: [number, number],
+  center: Vector2,
   radius: number
-): [number, number][] {
-  const positionsInCircle: [number, number][] = [];
-  const centerX = center[0] - gridWidth / 2;
-  const centerY = center[1] - gridHeight / 2;
+): Vector2[] {
+  const positionsInCircle: Vector2[] = [];
+  const centerX = center.x - gridWidth / 2;
+  const centerY = center.y - gridHeight / 2;
 
   for (let x = 0; x < gridWidth; x++) {
     for (let y = 0; y < gridHeight; y++) {
       const distance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
       if (distance <= radius) {
-        positionsInCircle.push([x, y]);
+        positionsInCircle.push(new Vector2(x, y));
       }
     }
   }

@@ -1,3 +1,4 @@
+import { Vector3 } from "three";
 import { ShipCapsule } from "./ShipCapsule";
 import { ShipFreezer } from "./ShipFreezer";
 import { ShipNamek } from "./ShipNamek";
@@ -10,7 +11,7 @@ enum ShipType {
 
 interface ShipProps {
   type: ShipType;
-  position: [number, number, number];
+  position: Vector3;
 }
 
 export const Ship = ({ type, position }: ShipProps) => {

@@ -1,7 +1,7 @@
 import { useSphere } from "@react-three/cannon";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
-import { Vector3 } from "three";
+import { Vector2, Vector3 } from "three";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
 import { SIZE_GROUND } from "../constants";
@@ -30,23 +30,27 @@ export const Player = () => {
     position: [0, 100, 0],
   }));
 
-  const pos = useRef([0, 100, 0]);
+  const pos = useRef<Vector3>(new Vector3(0, 100, 0));
 
   useEffect(() => {
     api.position.subscribe((p) => {
-      pos.current = p;
-      if (loading && pos.current[1] < 100) setLoading(false);
-      setPosition(p);
+      pos.current.x = p[0];
+      pos.current.y = p[1];
+      pos.current.z = p[2];
+      if (loading && pos.current.y < 100) setLoading(false);
+      setPosition(new Vector3(p[0], p[1], p[2]));
       const cameraDirection = new Vector3(0, 0, -1);
       cameraDirection.applyQuaternion(camera.quaternion);
-      setDirection([cameraDirection.x, cameraDirection.z]);
+      setDirection(new Vector2(cameraDirection.x, cameraDirection.z));
     });
   }, [api.position]);
 
-  const vel = useRef([0, 0, 0]);
+  const vel = useRef<Vector3>(new Vector3(0, 0, 0));
   useEffect(() => {
-    api.velocity.subscribe((p) => {
-      vel.current = p;
+    api.velocity.subscribe((v) => {
+      vel.current.x = v[0];
+      vel.current.y = v[1];
+      vel.current.z = v[2];
     });
   }, [api.velocity]);
 
@@ -67,49 +71,45 @@ export const Player = () => {
 
     //console.log(pos.current);
 
-    if (pos.current[0] > SIZE_GROUND.SIZE_X) {
-      pos.current[0] = SIZE_GROUND.SIZE_X;
-      vel.current[0] = 0;
-      vel.current[2] = 0;
+    if (pos.current.x > SIZE_GROUND.SIZE_X) {
+      pos.current.x = SIZE_GROUND.SIZE_X;
+      vel.current.x = 0;
+      vel.current.z = 0;
     }
 
-    if (pos.current[0] < -SIZE_GROUND.SIZE_X) {
-      pos.current[0] = -SIZE_GROUND.SIZE_X;
-      vel.current[0] = 0;
-      vel.current[2] = 0;
+    if (pos.current.x < -SIZE_GROUND.SIZE_X) {
+      pos.current.x = -SIZE_GROUND.SIZE_X;
+      vel.current.x = 0;
+      vel.current.y = 0;
     }
 
-    if (pos.current[2] > SIZE_GROUND.SIZE_Y) {
-      pos.current[2] = SIZE_GROUND.SIZE_Y;
-      vel.current[0] = 0;
-      vel.current[2] = 0;
+    if (pos.current.z > SIZE_GROUND.SIZE_Y) {
+      pos.current.z = SIZE_GROUND.SIZE_Y;
+      vel.current.x = 0;
+      vel.current.z = 0;
     }
 
-    if (pos.current[2] < -SIZE_GROUND.SIZE_Y) {
-      pos.current[2] = -SIZE_GROUND.SIZE_Y;
-      vel.current[0] = 0;
-      vel.current[2] = 0;
+    if (pos.current.z < -SIZE_GROUND.SIZE_Y) {
+      pos.current.z = -SIZE_GROUND.SIZE_Y;
+      vel.current.x = 0;
+      vel.current.z = 0;
     }
 
     camera.position.add(
       new Vector3(
-        -camera.position.x + pos.current[0],
-        -camera.position.y + pos.current[1],
-        -camera.position.z + pos.current[2]
+        -camera.position.x + pos.current.x,
+        -camera.position.y + pos.current.y,
+        -camera.position.z + pos.current.z
       )
     );
 
-    api.position.set(pos.current[0], pos.current[1], pos.current[2]);
+    api.position.set(pos.current.x, pos.current.y, pos.current.z);
 
-    //camera.position.add(direction);
+    api.velocity.set(direction.x, vel.current.y, direction.z);
 
-    api.velocity.set(direction.x, vel.current[1], direction.z);
-
-    if (jump && Math.abs(vel.current[1]) < 0.05) {
-      api.velocity.set(vel.current[0], CHARACTER_JUMP_FORCE, vel.current[2]);
+    if (jump && Math.abs(vel.current.y) < 0.05) {
+      api.velocity.set(vel.current.x, CHARACTER_JUMP_FORCE, vel.current.z);
     }
-    //if (moveBackward || moveForward || moveLeft || moveRight)
-    //console.log(pos.current);
   });
 
   return useMemo(() => <mesh ref={ref as React.MutableRefObject<Mesh>} />, []);

@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
-import { Mesh, Texture } from "three";
+import { Mesh, Texture, Vector2, Vector3 } from "three";
 
 interface WaterProps {
-  position: [number, number, number];
-  size: [number, number];
+  position: Vector3;
+  size: Vector2;
   texture: Texture;
 }
 
@@ -35,7 +35,7 @@ export const Water = ({ position, size, texture }: WaterProps) => {
       position={position}
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <planeGeometry args={size} />
+      <planeGeometry args={[size.x, size.y]} />
       <meshStandardMaterial
         transparent
         opacity={0.8}

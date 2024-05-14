@@ -26,6 +26,7 @@ import { ShipFreezer } from "../Ship/ShipFreezer";
 import { ShipNamek } from "../Ship/ShipNamek";
 import { useMountainsStore } from "../../hooks/useStore";
 import React from "react";
+import { Vector3 } from "three";
 
 export const Mountains = React.memo(() => {
   const [addPositionsMountain] = useMountainsStore((state) => [
@@ -53,7 +54,7 @@ export const Mountains = React.memo(() => {
   }, []);
 
   const renderSubItem = (
-    position: [number, number, number],
+    position: Vector3,
     index: number,
     subIndex: number
   ) => {
@@ -101,7 +102,9 @@ export const Mountains = React.memo(() => {
             ? item.subPositionsVillage.map((subItem) => (
                 <Village
                   key={nanoid()}
-                  position={[subItem[0], item.position[1] * 2, subItem[1]]}
+                  position={
+                    new Vector3(subItem.x, item.position.y * 2, subItem.y)
+                  }
                   housesCount={getRandomNumber(HOUSE_COUNT, 10)}
                 />
               ))
@@ -109,64 +112,80 @@ export const Mountains = React.memo(() => {
           {item.subPositionsItem
             ? item.subPositionsItem.map((subItem, index) =>
                 renderSubItem(
-                  [
-                    subItem.position[0],
-                    item.position[1] * 2 + 0.1,
-                    subItem.position[1],
-                  ],
+                  new Vector3(
+                    subItem.position.x,
+                    item.position.y * 2 + 0.1,
+                    subItem.position.y
+                  ),
                   indexMountain,
                   index
                 )
               )
             : null}
           <Mountain
-            position={[
-              -1.5 * SIZE_GROUND.SIZE_Y,
-              20,
-              -1.5 * SIZE_GROUND.SIZE_Y,
-            ]}
+            position={
+              new Vector3(
+                -1.5 * SIZE_GROUND.SIZE_Y,
+                20,
+                -1.5 * SIZE_GROUND.SIZE_Y
+              )
+            }
             radiusBottom={400}
             radiusTop={10}
             height={40}
           />
           <Mountain
-            position={[-1.5 * SIZE_GROUND.SIZE_Y, 20, 1.5 * SIZE_GROUND.SIZE_Y]}
+            position={
+              new Vector3(
+                -1.5 * SIZE_GROUND.SIZE_Y,
+                20,
+                1.5 * SIZE_GROUND.SIZE_Y
+              )
+            }
             radiusBottom={400}
             radiusTop={100}
             height={40}
           />
           <Mountain
-            position={[1.5 * SIZE_GROUND.SIZE_Y, 20, -2 * SIZE_GROUND.SIZE_Y]}
+            position={
+              new Vector3(1.5 * SIZE_GROUND.SIZE_Y, 20, -2 * SIZE_GROUND.SIZE_Y)
+            }
             radiusBottom={400}
             radiusTop={100}
             height={40}
           />
           <Mountain
-            position={[1.5 * SIZE_GROUND.SIZE_Y, 20, 1.5 * SIZE_GROUND.SIZE_Y]}
+            position={
+              new Vector3(
+                1.5 * SIZE_GROUND.SIZE_Y,
+                20,
+                1.5 * SIZE_GROUND.SIZE_Y
+              )
+            }
             radiusBottom={400}
             radiusTop={10}
             height={40}
           />
           <Mountain
-            position={[-2 * SIZE_GROUND.SIZE_Y, 20, 0]}
+            position={new Vector3(-2 * SIZE_GROUND.SIZE_Y, 20, 0)}
             radiusBottom={400}
             radiusTop={100}
             height={40}
           />
           <Mountain
-            position={[0, 20, 2 * SIZE_GROUND.SIZE_Y]}
+            position={new Vector3(0, 20, 2 * SIZE_GROUND.SIZE_Y)}
             radiusBottom={400}
             radiusTop={10}
             height={40}
           />
           <Mountain
-            position={[2 * SIZE_GROUND.SIZE_Y, 20, 0]}
+            position={new Vector3(2 * SIZE_GROUND.SIZE_Y, 20, 0)}
             radiusBottom={400}
             radiusTop={10}
             height={40}
           />
           <Mountain
-            position={[0, 20, -2 * SIZE_GROUND.SIZE_Y]}
+            position={new Vector3(0, 20, -2 * SIZE_GROUND.SIZE_Y)}
             radiusBottom={400}
             radiusTop={100}
             height={40}

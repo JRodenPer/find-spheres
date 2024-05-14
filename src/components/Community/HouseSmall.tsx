@@ -1,26 +1,26 @@
 import { nanoid } from "nanoid";
-import { Mesh } from "three";
+import { Euler, Mesh, Vector3 } from "three";
 import { useSphere } from "@react-three/cannon";
 import { Sphere } from "@react-three/drei";
 import { Door, Skylight, ConeDecoration } from "../Accesories";
 
-const POSITIONS: [number, number, number][] = [
-  [-0.55, 0.3, 1],
-  [0, 0.65, 1],
-  [0.55, 0.3, 1],
+const POSITIONS: Vector3[] = [
+  new Vector3(-0.55, 0.3, 1),
+  new Vector3(0, 0.65, 1),
+  new Vector3(0.55, 0.3, 1),
 ];
 
-const SCALE: [number, number, number] = [0.15, 0.15, 0.15];
+const SCALE: Vector3 = new Vector3(0.15, 0.15, 0.15);
 
 interface HouseProps {
-  position: [number, number, number];
+  position: Vector3;
 }
 
 export const HouseSmall = ({ position }: HouseProps) => {
   const halfHeight = 0.5;
   const [ref] = useSphere(() => ({
     type: "Static",
-    position: [position[0], position[1] + halfHeight, position[2]],
+    position: [position.x, position.y + halfHeight, position.z],
     args: [1],
     mass: 1,
   }));
@@ -46,20 +46,23 @@ export const HouseSmall = ({ position }: HouseProps) => {
       ))}
 
       <ConeDecoration
-        position={[0.8, 1, 0.4]}
-        scale={[0.15, 1, 0.15]}
-        rotation={[0, 0, -Math.PI / 4]}
+        position={new Vector3(0.8, 1, 0.4)}
+        scale={new Vector3(0.15, 1, 0.15)}
+        rotation={new Euler(0, 0, -Math.PI / 4)}
       />
-
-      <ConeDecoration position={[0, 1, 0.4]} scale={[0.15, 1, 0.15]} />
 
       <ConeDecoration
-        position={[-0.8, 1, 0.4]}
-        scale={[0.15, 1, 0.15]}
-        rotation={[0, 0, Math.PI / 4]}
+        position={new Vector3(0, 1, 0.4)}
+        scale={new Vector3(0.15, 1, 0.15)}
       />
 
-      <Door position={[0, -0.2, 1.4]} scale={0.7} />
+      <ConeDecoration
+        position={new Vector3(-0.8, 1, 0.4)}
+        scale={new Vector3(0.15, 1, 0.15)}
+        rotation={new Euler(0, 0, Math.PI / 4)}
+      />
+
+      <Door position={new Vector3(0, -0.2, 1.4)} scale={0.7} />
     </mesh>
   );
 };

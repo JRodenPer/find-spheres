@@ -1,13 +1,13 @@
 import { useSphere } from "@react-three/cannon";
-import { Mesh } from "three";
+import { Euler, Mesh, Vector3 } from "three";
 import { Cylinder } from "@react-three/drei";
 import { Skylight } from "./Skylight";
 
 interface DoorProps {
-  position: [number, number, number];
+  position: Vector3;
   scale: number;
   window?: boolean;
-  rotation?: [number, number, number];
+  rotation?: Euler;
   color?: string;
   colorBorder?: string;
 }
@@ -16,15 +16,15 @@ export const Door = ({
   position,
   scale = 1,
   window = true,
-  rotation = [0, 0, 0],
+  rotation = new Euler(0, 0, 0),
   color = "#A9A9A9",
   colorBorder = "white",
 }: DoorProps) => {
   const [ref] = useSphere(() => ({
     type: "Static",
-    position,
+    position: [position.x, position.y, position.z],
     args: [1],
-    rotation,
+    rotation: [rotation.x, rotation.y, rotation.z],
   }));
 
   return (
@@ -65,8 +65,8 @@ export const Door = ({
 
         {window ? (
           <Skylight
-            position={[0, 0.2 * scale, 0.1 * scale]}
-            scale={[0.1, 0.1, 0.1]}
+            position={new Vector3(0, 0.2 * scale, 0.1 * scale)}
+            scale={new Vector3(0.1, 0.1, 0.1)}
           />
         ) : null}
       </mesh>
