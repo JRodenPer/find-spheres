@@ -5,9 +5,10 @@ import textures from "../../images/textures";
 
 interface HouseProps {
   position: [number, number, number];
+  height: number;
 }
 
-export const TreeNamek = ({ position }: HouseProps) => {
+export const TreeNamek = ({ position, height }: HouseProps) => {
   const [ref] = useBox(() => ({
     type: "Static",
     position,
@@ -17,12 +18,12 @@ export const TreeNamek = ({ position }: HouseProps) => {
   return (
     <>
       <mesh ref={ref as React.MutableRefObject<Mesh>} castShadow receiveShadow>
-        <Cylinder args={[0.025, 0.025, 1, 8]} castShadow receiveShadow>
+        <Cylinder args={[0.025, 0.025, height, 8]} castShadow receiveShadow>
           <meshStandardMaterial attach="material" map={textures.woodTexture} />
         </Cylinder>
 
         <Sphere
-          position={[0, 0.5, 0]}
+          position={[0, 0.5 * height, 0]}
           args={[0.15, 8, 6]}
           castShadow
           receiveShadow
