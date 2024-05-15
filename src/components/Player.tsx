@@ -1,7 +1,7 @@
 import { useSphere } from "@react-three/cannon";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
-import { Vector2, Vector3 } from "three";
+import { Quaternion, Vector2, Vector3 } from "three";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh } from "three";
 import { SIZE_GROUND } from "../constants";
@@ -18,9 +18,9 @@ export const Player = () => {
   const [setPosition] = usePlayerStore((state) => [state.setPosition]);
   const [setDirection] = usePlayerStore((state) => [state.setDirection]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     console.log("El componente Player se ha renderizado");
-  });*/
+  });
 
   const { camera } = useThree();
 
@@ -31,79 +31,83 @@ export const Player = () => {
   }));
 
   const pos = useRef<Vector3>(new Vector3(0, 100, 0));
+  const dirQuaternion = useRef<Quaternion>(new Quaternion());
 
   useEffect(() => {
-    api.position.subscribe((p) => {
-      pos.current.x = p[0];
-      pos.current.y = p[1];
-      pos.current.z = p[2];
-      if (loading && pos.current.y < 100) setLoading(false);
-      setPosition(new Vector3(p[0], p[1], p[2]));
-      const cameraDirection = new Vector3(0, 0, -1);
-      cameraDirection.applyQuaternion(camera.quaternion);
-      setDirection(new Vector2(cameraDirection.x, cameraDirection.z));
+    const unsubscribe = api.position.subscribe((p) => {
+      if (
+        p[0] !== pos.current.x ||
+        p[1] !== pos.current.y ||
+        p[2] !== pos.current.z
+      ) {
+        pos.current.x = p[0];
+        pos.current.y = p[1];
+        pos.current.z = p[2];
+        if (loading && pos.current.y < 100) setLoading(false);
+        setPosition(pos.current);
+      }
+      if (
+        camera.quaternion.x !== dirQuaternion.current.x ||
+        camera.quaternion.y !== dirQuaternion.current.y ||
+        camera.quaternion.z !== dirQuaternion.current.z ||
+        camera.quaternion.w !== dirQuaternion.current.w
+      ) {
+        dirQuaternion.current.x = camera.quaternion.x;
+        dirQuaternion.current.y = camera.quaternion.y;
+        dirQuaternion.current.z = camera.quaternion.z;
+        dirQuaternion.current.w = camera.quaternion.w;
+
+        const cameraDirection = new Vector3(0, 0, -1);
+        cameraDirection.applyQuaternion(camera.quaternion);
+        setDirection(new Vector2(cameraDirection.x, cameraDirection.z));
+      }
     });
+    return () => unsubscribe();
   }, [api.position]);
 
   const vel = useRef<Vector3>(new Vector3(0, 0, 0));
   useEffect(() => {
-    api.velocity.subscribe((v) => {
-      vel.current.x = v[0];
-      vel.current.y = v[1];
-      vel.current.z = v[2];
+    const unsubscribe = api.velocity.subscribe((v) => {
+      if (
+        v[0] !== vel.current.x ||
+        v[1] !== vel.current.y ||
+        v[2] !== vel.current.z
+      ) {
+        vel.current.x = v[0];
+        vel.current.y = v[1];
+        vel.current.z = v[2];
+      }
     });
+    return () => unsubscribe();
   }, [api.velocity]);
 
   useFrame(() => {
-    const direction = new Vector3(
-      0,
-      0,
-      walk || walkBack || run
-        ? walk || walkBack
-          ? -CHARACTER_SPEED_WALK
-          : -CHARACTER_SPEED_RUN
-        : 0
+    const direction = new Vector3();
+
+    if (walk || walkBack || run) {
+      direction.set(
+        0,
+        0,
+        walk || walkBack ? -CHARACTER_SPEED_WALK : -CHARACTER_SPEED_RUN
+      );
+
+      if (walkBack) direction.z *= -1;
+
+      direction.applyEuler(camera.rotation);
+    }
+
+    const newPosition = new Vector3(
+      Math.min(
+        Math.max(pos.current.x, -SIZE_GROUND.SIZE_X),
+        SIZE_GROUND.SIZE_X
+      ),
+      pos.current.y,
+      Math.min(Math.max(pos.current.z, -SIZE_GROUND.SIZE_Y), SIZE_GROUND.SIZE_Y)
     );
 
-    if (walkBack) direction.z *= -1;
+    camera.position.lerp(newPosition, 0.1);
 
-    direction.applyEuler(camera.rotation);
-
-    //console.log(pos.current);
-
-    if (pos.current.x > SIZE_GROUND.SIZE_X) {
-      pos.current.x = SIZE_GROUND.SIZE_X;
-      vel.current.x = 0;
-      vel.current.z = 0;
-    }
-
-    if (pos.current.x < -SIZE_GROUND.SIZE_X) {
-      pos.current.x = -SIZE_GROUND.SIZE_X;
-      vel.current.x = 0;
-      vel.current.y = 0;
-    }
-
-    if (pos.current.z > SIZE_GROUND.SIZE_Y) {
-      pos.current.z = SIZE_GROUND.SIZE_Y;
-      vel.current.x = 0;
-      vel.current.z = 0;
-    }
-
-    if (pos.current.z < -SIZE_GROUND.SIZE_Y) {
-      pos.current.z = -SIZE_GROUND.SIZE_Y;
-      vel.current.x = 0;
-      vel.current.z = 0;
-    }
-
-    camera.position.add(
-      new Vector3(
-        -camera.position.x + pos.current.x,
-        -camera.position.y + pos.current.y,
-        -camera.position.z + pos.current.z
-      )
-    );
-
-    api.position.set(pos.current.x, pos.current.y, pos.current.z);
+    api.position.set(newPosition.x, newPosition.y, newPosition.z);
 
     api.velocity.set(direction.x, vel.current.y, direction.z);
 

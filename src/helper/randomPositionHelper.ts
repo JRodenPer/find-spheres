@@ -83,14 +83,18 @@ export function generateRandomMountainsPos(
       let isValid = true;
       for (let k = 0; k < i; k++) {
         const centerPosCheck = positions[k].position;
-        const radiusCheck =
-          positions[k].radius * MOUNTAINS_RADIUS_BOTTOM_PERCENT;
+        const radiusCheck = positions[k].radius;
         const checkPosition = isPointInsideCircle(
           new Vector2(centerPosCheck.x, centerPosCheck.z),
           radiusCheck,
           subPosition
         );
-        if (checkPosition) {
+        const checkPositionCurrent = isPointInsideCircle(
+          new Vector2(positions[i].position.x, positions[i].position.z),
+          positions[i].radius,
+          subPosition
+        );
+        if (checkPosition || !checkPositionCurrent) {
           isValid = false;
           break;
         }

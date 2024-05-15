@@ -39,7 +39,11 @@ export const DragonBalls = () => {
   return (
     <group>
       {spheres.map((sphere) => (
-        <DragonBall key={nanoid()} position={sphere.pos} stars={sphere.stars} />
+        <DragonBall
+          key={sphere.stars}
+          position={sphere.pos}
+          stars={sphere.stars}
+        />
       ))}
     </group>
   );

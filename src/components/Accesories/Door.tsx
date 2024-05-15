@@ -29,12 +29,7 @@ export const Door = ({
 
   return (
     <>
-      <mesh
-        receiveShadow
-        castShadow
-        ref={ref as React.MutableRefObject<Mesh>}
-        rotation={rotation}
-      >
+      <mesh ref={ref as React.MutableRefObject<Mesh>} rotation={rotation}>
         <Cylinder
           receiveShadow
           castShadow
