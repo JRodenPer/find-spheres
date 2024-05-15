@@ -1,13 +1,10 @@
 import * as THREE from "three";
 import { createNoise2D } from "simplex-noise";
 
-// Función para generar un mapa de ruido que mezcle arena y césped
 export function generateNoiseMap(
   width: number,
   height: number,
-  scale: number,
-  offsetX: number,
-  offsetY: number
+  scale: number
 ): number[][] {
   const noise2D = createNoise2D();
 
@@ -16,8 +13,8 @@ export function generateNoiseMap(
   for (let y = 0; y < height; y++) {
     noiseMap[y] = [];
     for (let x = 0; x < width; x++) {
-      const sampleX = (x + offsetX) / scale;
-      const sampleY = (y + offsetY) / scale;
+      const sampleX = x / scale;
+      const sampleY = y / scale;
       const noiseValue = noise2D(sampleX, sampleY);
       noiseMap[y][x] = noiseValue;
     }
@@ -66,29 +63,26 @@ export function generateTextureFromNoiseMap(
         Math.pow((noiseValue + 1) / 2, 3)
       );
 
-      // Convertir los valores de color a números enteros
       const r = Math.round(color.r * 255);
       const g = Math.round(color.g * 255);
       const b = Math.round(color.b * 255);
 
-      // Asignar los valores de color a data
-      data[index] = r; // Rojo
-      data[index + 1] = g; // Verde
-      data[index + 2] = b; // Azul
-      data[index + 3] = 255; // Alpha (completamente opaco)
+      data[index] = r;
+      data[index + 1] = g;
+      data[index + 2] = b;
+      data[index + 3] = 255;
     }
   }
 
   if (seamLess) {
-    // Repetir el primer píxel en el último borde derecho y el primer borde inferior
     for (let y = 0; y < canvas.height - 1; y++) {
       const index = y * canvas.width * 4;
-      data[index + 4 * (canvas.width - 1)] = data[index]; // Repetir el primer píxel en el último borde derecho
+      data[index + 4 * (canvas.width - 1)] = data[index];
     }
     for (let x = 0; x < canvas.width; x++) {
       const index = (canvas.height - 1) * canvas.width * 4;
       const sourceIndex = x * 4;
-      data[index + sourceIndex] = data[sourceIndex]; // Repetir el primer borde inferior
+      data[index + sourceIndex] = data[sourceIndex];
       data[index + sourceIndex + 1] = data[sourceIndex + 1];
       data[index + sourceIndex + 2] = data[sourceIndex + 2];
       data[index + sourceIndex + 3] = data[sourceIndex + 3];
@@ -97,7 +91,7 @@ export function generateTextureFromNoiseMap(
     for (let y = 0; y < canvas.height; y++) {
       const index = (y * canvas.width + (canvas.width - 1)) * 4;
       const sourceIndex = y * canvas.width * 4;
-      data[index] = data[sourceIndex]; // Repetir la primera columna en la última columna
+      data[index] = data[sourceIndex];
       data[index + 1] = data[sourceIndex + 1];
       data[index + 2] = data[sourceIndex + 2];
       data[index + 3] = data[sourceIndex + 3];

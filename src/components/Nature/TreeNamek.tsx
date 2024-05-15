@@ -17,7 +17,7 @@ export const TreeNamek = ({ position, height }: HouseProps) => {
 
   return (
     <>
-      <mesh ref={ref as React.MutableRefObject<Mesh>} castShadow receiveShadow>
+      <mesh ref={ref as React.MutableRefObject<Mesh>}>
         <Cylinder args={[0.025, 0.025, height, 8]} castShadow receiveShadow>
           <meshStandardMaterial attach="material" map={textures.woodTexture} />
         </Cylinder>

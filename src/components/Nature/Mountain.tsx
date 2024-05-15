@@ -26,6 +26,9 @@ function toConvexProps(bufferGeometry: any) {
   ];
 }
 
+const noiseMapTop = generateNoiseMap(512, 512, 100);
+const textureTop = generateTextureFromNoiseMap(noiseMapTop);
+
 export const Mountain = ({
   position,
   radiusTop,
@@ -46,25 +49,16 @@ export const Mountain = ({
     useRef<Mesh>(null)
   );
 
-  const noiseMapBorder = generateNoiseMap(
-    radiusTop,
-    radiusTop,
-    radiusTop,
-    0,
-    0
-  );
+  const noiseMapBorder = generateNoiseMap(radiusTop, radiusTop, radiusTop);
   const textureBorder = generateTextureFromNoiseMap(
     noiseMapBorder,
-    "#D98C50",
-    "#8CE0C9",
+    "#d1712c",
+    "#dbbc0d",
     true
   );
 
-  const noiseMapTop = generateNoiseMap(512, 512, 100, 0, 0);
-  const textureTop = generateTextureFromNoiseMap(noiseMapTop);
-
   return (
-    <mesh receiveShadow castShadow ref={ref as React.MutableRefObject<Mesh>}>
+    <mesh ref={ref as React.MutableRefObject<Mesh>}>
       <Cylinder
         receiveShadow
         castShadow

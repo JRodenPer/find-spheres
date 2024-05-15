@@ -26,7 +26,7 @@ export const HouseSmall = ({ position }: HouseProps) => {
   }));
 
   return (
-    <mesh receiveShadow castShadow ref={ref as React.MutableRefObject<Mesh>}>
+    <mesh ref={ref as React.MutableRefObject<Mesh>}>
       <Sphere
         receiveShadow
         castShadow

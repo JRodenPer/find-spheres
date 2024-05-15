@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import {
   RandodomInfo,
@@ -61,11 +60,11 @@ export const Mountains = React.memo(() => {
     if (index === 0) {
       switch (subIndex) {
         case 0:
-          return <ShipCapsule key={nanoid()} position={position} />;
+          return <ShipCapsule key={subIndex} position={position} />;
         case 1:
-          return <ShipFreezer key={nanoid()} position={position} />;
+          return <ShipFreezer key={subIndex} position={position} />;
         case 2:
-          return <ShipNamek key={nanoid()} position={position} />;
+          return <ShipNamek key={subIndex} position={position} />;
         default:
           break;
       }
@@ -74,34 +73,36 @@ export const Mountains = React.memo(() => {
     const addDragonBall =
       positionsMountain[index].subPositionsItem[subIndex].isDragonBall;
 
+    //console.log("rendering item ----> " + index, subIndex);
+
     return addDragonBall ? null : (
       <TreeNamek
-        key={nanoid()}
+        key={subIndex}
         position={position}
         height={getRandomNumber(TREE_HEIGHT_MAX, TREE_HEIGHT_MIN, false)}
       />
     );
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     console.log("El componente Mountains se ha renderizado");
-  });*/
+  });
 
   return (
     <group>
       {positionsMountain.map((item, indexMountain) => (
-        <>
+        <React.Fragment key={indexMountain}>
           <Mountain
-            key={nanoid()}
+            key={indexMountain}
             position={item.position}
             radiusTop={item.radius}
             radiusBottom={item.radius * MOUNTAINS_RADIUS_BOTTOM_PERCENT}
             height={item.height}
           />
           {item.subPositionsVillage
-            ? item.subPositionsVillage.map((subItem) => (
+            ? item.subPositionsVillage.map((subItem, index) => (
                 <Village
-                  key={nanoid()}
+                  key={index}
                   position={
                     new Vector3(subItem.x, item.position.y * 2, subItem.y)
                   }
@@ -148,11 +149,11 @@ export const Mountains = React.memo(() => {
           />
           <Mountain
             position={
-              new Vector3(1.5 * SIZE_GROUND.SIZE_Y, 20, -2 * SIZE_GROUND.SIZE_Y)
+              new Vector3(1.5 * SIZE_GROUND.SIZE_Y, 40, -2 * SIZE_GROUND.SIZE_Y)
             }
             radiusBottom={400}
             radiusTop={100}
-            height={40}
+            height={80}
           />
           <Mountain
             position={
@@ -167,10 +168,10 @@ export const Mountains = React.memo(() => {
             height={40}
           />
           <Mountain
-            position={new Vector3(-2 * SIZE_GROUND.SIZE_Y, 20, 0)}
+            position={new Vector3(-2 * SIZE_GROUND.SIZE_Y, 40, 0)}
             radiusBottom={400}
             radiusTop={100}
-            height={40}
+            height={80}
           />
           <Mountain
             position={new Vector3(0, 20, 2 * SIZE_GROUND.SIZE_Y)}
@@ -185,12 +186,12 @@ export const Mountains = React.memo(() => {
             height={40}
           />
           <Mountain
-            position={new Vector3(0, 20, -2 * SIZE_GROUND.SIZE_Y)}
+            position={new Vector3(0, 40, -2 * SIZE_GROUND.SIZE_Y)}
             radiusBottom={400}
             radiusTop={100}
-            height={40}
+            height={80}
           />
-        </>
+        </React.Fragment>
       ))}
     </group>
   );

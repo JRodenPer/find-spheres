@@ -1,20 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { usePlayerStore, useSpheresStore } from "../../hooks/useStore";
 import { Vector2, Vector3 } from "three";
+
+const useRadarData = () => {
+  const position = usePlayerStore((state) => state.position);
+  const direction = usePlayerStore((state) => state.direction);
+  const spheres = useSpheresStore((state) => state.spheres);
+
+  return useMemo(
+    () => ({ position, direction, spheres }),
+    [position, direction, spheres]
+  );
+};
 
 const Radar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [positions, setPositions] = useState<Vector2[]>([]);
-  const [position] = usePlayerStore((state) => [state.position]);
-  const [direction] = usePlayerStore((state) => [state.direction]);
-  const [spheres] = useSpheresStore((state) => [state.spheres]);
+  const { position, direction, spheres } = useRadarData();
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setIsActive((prevIsActive) => !prevIsActive);
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, []);
+    const intervalId = isVisible
+      ? setInterval(() => {
+          setIsActive((prevIsActive) => !prevIsActive);
+        }, 1000)
+      : null;
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [isVisible]);
   useEffect(() => {
     const normPos2 =
       direction.y /
@@ -28,7 +41,6 @@ const Radar: React.FC = () => {
     const angle = sign * Math.acos(-normPos2);
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
-    console.log(angle);
     const currentPositions = [
       ...spheres.map((sphere) => {
         const camPos = new Vector2(
@@ -48,7 +60,7 @@ const Radar: React.FC = () => {
       }),
     ];
     setPositions(currentPositions);
-  }, [position, spheres]);
+  }, [direction, position, spheres]);
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "q" || event.key === "Q") setIsVisible(!isVisible);

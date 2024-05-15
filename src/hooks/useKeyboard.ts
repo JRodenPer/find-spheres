@@ -35,7 +35,6 @@ export const useKeyboard = () => {
     const handleKeyUp = (event: KeyboardEvent) => {
       const { code } = event;
       const action = ACTIONS_KEYBOARD_MAP[code];
-      console.log(action);
       if (action) {
         action === ACTIONS_KEYBOARD_MAP.Space
           ? setActions((prevActions: any) => ({

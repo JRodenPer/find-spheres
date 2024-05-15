@@ -31,22 +31,24 @@ export const DragonBallsMenu: React.FC = () => {
   return (
     <div className="dragon-balls-menu">
       {win ? <label>Win!!!</label> : null}
-      {dragonBalls.map((dragonBall, index) => (
-        <div
-          className={"dragon-ball-menu-item"}
-          key={dragonBall.id}
-          hidden={Object.keys(dragonBall).length === 0}
-        >
-          <div className="dragon-ball-image-container">
-            <img
-              src={(images as any)[dragonBall.texture]}
-              alt={`ball${index + 1}`}
-              width={"100%"}
-              height={"100%"}
-            />
+      {dragonBalls
+        .filter((dragonBall) => dragonBall.id)
+        .map((dragonBall, index) => (
+          <div
+            className={"dragon-ball-menu-item"}
+            key={dragonBall.id}
+            hidden={Object.keys(dragonBall).length === 0}
+          >
+            <div className="dragon-ball-image-container">
+              <img
+                src={(images as any)[dragonBall.texture]}
+                alt={`ball${index + 1}`}
+                width={"100%"}
+                height={"100%"}
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

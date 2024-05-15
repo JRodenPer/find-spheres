@@ -16,28 +16,17 @@ import { Vector2, Vector3 } from "three";
 
 const { SIZE_X, SIZE_Y } = SIZE_GROUND;
 
+const noiseMapGround = generateNoiseMap(512, 512, 100);
+const textureGround = generateTextureFromNoiseMap(noiseMapGround);
+
+const noiseMapWater = generateNoiseMap(5, 5, 10);
+const textureWater = generateTextureFromNoiseMap(
+  noiseMapWater,
+  "blue",
+  "white"
+);
+
 const World = () => {
-  const [textureGround, setTextureGround] = useState<any>(undefined);
-  const [textureWater, setTextureWater] = useState<any>(undefined);
-
-  useEffect(() => {
-    const width = 512;
-    const height = 512;
-    const scale = 100;
-    const offsetX = 0;
-    const offsetY = 0;
-    const noiseMap = generateNoiseMap(width, height, scale, offsetX, offsetY);
-
-    const newTexture = generateTextureFromNoiseMap(noiseMap);
-    setTextureGround(newTexture);
-  }, []);
-
-  useEffect(() => {
-    const noiseMap = generateNoiseMap(5, 5, 10, 0, 0);
-    const newTexture = generateTextureFromNoiseMap(noiseMap, "blue", "white");
-    setTextureWater(newTexture);
-  }, []);
-
   return (
     <>
       <Canvas shadows>
@@ -66,8 +55,8 @@ const World = () => {
             texture={textureWater}
           />
           <Player />
-          <DragonBalls />
           <Mountains />
+          <DragonBalls />
         </Physics>
       </Canvas>
       <div className="pointer"> + </div>
