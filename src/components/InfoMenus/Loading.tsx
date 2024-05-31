@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLoadingStore } from "../../hooks/useStore";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { DragonBall } from "../DragonBalls/DragonBall";
-import { Physics } from "@react-three/cannon";
+import { useFrame } from "@react-three/fiber";
 import { Sphere } from "@react-three/drei";
 
 const RotatingSphere = () => {

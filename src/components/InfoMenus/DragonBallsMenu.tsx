@@ -13,7 +13,6 @@ export const DragonBallsMenu: React.FC = () => {
     Array(7).fill({})
   );
   const [lastPicked] = useSpheresStore((state) => [state.lastPicked]);
-  const [win] = useSpheresStore((state) => [state.win]);
 
   useEffect(() => {
     const addDragonBall = (stars: number) => {
@@ -30,7 +29,6 @@ export const DragonBallsMenu: React.FC = () => {
 
   return (
     <div className="dragon-balls-menu">
-      {win ? <label>Win!!!</label> : null}
       {dragonBalls
         .filter((dragonBall) => dragonBall.id)
         .map((dragonBall, index) => (

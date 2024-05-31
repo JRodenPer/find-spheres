@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 type ActionsKeyboardMap = {
   [key: string]: string;

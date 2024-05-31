@@ -6,7 +6,6 @@ import { FirstPV } from "../components/FirstPV";
 import { Player } from "../components/Player";
 import { Mountains } from "../components/Nature";
 import { DragonBalls } from "./DragonBalls";
-import { useEffect, useState } from "react";
 import {
   generateNoiseMap,
   generateTextureFromNoiseMap,

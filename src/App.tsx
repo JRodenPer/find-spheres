@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
 import Radar from "./components/DragonBalls/Radar";
-import { DragonBallsMenu, HelpMenu } from "./components/InfoMenus";
+import { DragonBallsMenu, HelpMenu, Winner } from "./components/InfoMenus";
 import { Loading } from "./components/InfoMenus/Loading";
 import World from "./components/World";
-import { usePlayerStore, useSpheresStore } from "./hooks/useStore";
+import { useSpheresStore } from "./hooks/useStore";
 
 const App = () => {
+  const [win] = useSpheresStore((state) => [state.win]);
   return (
     <>
       <World />
       <DragonBallsMenu />
       <HelpMenu />
       <Loading />
-      <Radar />
+      <Winner />
+      {win ? null : <Radar />}
     </>
   );
 };

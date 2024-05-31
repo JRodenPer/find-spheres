@@ -38,6 +38,13 @@ export const HelpMenu: React.FC = () => {
       <p>Space: Jump</p>
       <p>Q: Show / hide radar</p>
       <p>H: Show / hide help menu</p>
+
+      <h1>About</h1>
+      <p>
+        This game has been developed by J. Rodenper. You can check my portfolio
+        in www.rodenper.dev
+      </p>
+      <p>Thanks for playing!</p>
     </div>
   );
 };
