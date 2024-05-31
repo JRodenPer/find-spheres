@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { DragonBall } from "./DragonBall";
 import { useSpheresStore, useMountainsStore } from "../../hooks/useStore";
 import { useEffect } from "react";

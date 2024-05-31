@@ -1,6 +1,3 @@
-import { HouseSmall } from "./HouseSmall";
-import { HouseMid } from "./HouseMid";
-import { HouseBig } from "./HouseBig";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { generateRandomPos } from "../../helper/randomPositionHelper";

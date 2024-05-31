@@ -1,8 +1,5 @@
 import { Vector2, Vector3 } from "three";
-import {
-  MOUNTAINS_RADIUS_BOTTOM_PERCENT,
-  VILLAGE_PER_MOUNTAIN_COUNT,
-} from "../constants";
+import { VILLAGE_PER_MOUNTAIN_COUNT } from "../constants";
 
 export interface RandodomInfo {
   position: Vector3;
