@@ -66,7 +66,7 @@ export const useKeyboard = () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [actions]);
 
   return actions;
 };

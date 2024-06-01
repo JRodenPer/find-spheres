@@ -63,7 +63,14 @@ export const Player = () => {
       }
     });
     return () => unsubscribe();
-  }, [api.position]);
+  }, [
+    api.position,
+    camera.quaternion,
+    loading,
+    setDirection,
+    setLoading,
+    setPosition,
+  ]);
 
   const vel = useRef<Vector3>(new Vector3(0, 0, 0));
   useEffect(() => {
@@ -116,5 +123,8 @@ export const Player = () => {
     }
   });
 
-  return useMemo(() => <mesh ref={ref as React.MutableRefObject<Mesh>} />, []);
+  return useMemo(
+    () => <mesh ref={ref as React.MutableRefObject<Mesh>} />,
+    [ref]
+  );
 };
