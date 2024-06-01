@@ -50,7 +50,7 @@ export const Mountains = React.memo(() => {
     addPositionsMountain(items);
 
     console.log("render mountains");
-  }, []);
+  }, [addPositionsMountain]);
 
   const renderSubItem = (
     position: Vector3,
@@ -73,8 +73,6 @@ export const Mountains = React.memo(() => {
     const addDragonBall =
       positionsMountain[index].subPositionsItem[subIndex].isDragonBall;
 
-    //console.log("rendering item ----> " + index, subIndex);
-
     return addDragonBall ? null : (
       <TreeNamek
         key={subIndex}
@@ -83,10 +81,6 @@ export const Mountains = React.memo(() => {
       />
     );
   };
-
-  useEffect(() => {
-    console.log("El componente Mountains se ha renderizado");
-  });
 
   return (
     <group>

@@ -26,7 +26,7 @@ export const DragonBall = ({ position, stars }: DragonBallProps) => {
     const textureName = `ball${stars}Texture`;
     const currentTexture = textures[textureName];
     setTexture(currentTexture);
-  }, []);
+  }, [stars]);
 
   const handleOnClick = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();

@@ -33,7 +33,7 @@ export const DragonBalls = () => {
         );
       }
     );
-  }, [positionsMountain]);
+  }, [addSphere, positionsMountain]);
 
   return (
     <group>

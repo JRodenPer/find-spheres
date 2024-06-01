@@ -25,7 +25,7 @@ export const DragonBallsMenu: React.FC = () => {
       setDragonBalls(currentDragonBalls);
     };
     addDragonBall(lastPicked);
-  }, [lastPicked]);
+  }, [dragonBalls, lastPicked]);
 
   return (
     <div className="dragon-balls-menu">
