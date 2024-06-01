@@ -13,13 +13,19 @@ Don't forget use the radar if you cannot find the spheres! Good luck!
 # Game commands
 
 Mouse: Control the camera movement
+
 W: Start / stop walking forward
+
 S: Start / stop walking backwards
+
 R: Start / stop runnig
+
 Space: Jump
+
 Q: Show / hide radar
+
 H: Show / hide help menu
 
 Developed by J. Rodenper
-wwww.rodenper.dev
+https://wwww.rodenper.dev
 jrodenper@gmail.com
