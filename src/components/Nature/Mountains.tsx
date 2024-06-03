@@ -48,8 +48,6 @@ export const Mountains = React.memo(() => {
     );
     setPositionsMountain(items);
     addPositionsMountain(items);
-
-    console.log("render mountains");
   }, [addPositionsMountain]);
 
   const renderSubItem = (

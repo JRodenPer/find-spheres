@@ -26,6 +26,11 @@ export interface IPlayerState {
   setDirection: (direction: Vector2) => void;
 }
 
+export interface ITimerState {
+  timer: number;
+  setTimer: (time: number) => void;
+}
+
 export const useMountainsStore = create<IMountainsState>((set) => ({
   positionsMountain: [],
 
@@ -87,6 +92,16 @@ export const usePlayerStore = create<IPlayerState>((set) => ({
   setDirection: (direction: Vector2) => {
     set(() => ({
       direction: new Vector2(direction.x, direction.y),
+    }));
+  },
+}));
+
+export const useTimerStore = create<ITimerState>((set) => ({
+  timer: 0,
+
+  setTimer: (timer: number) => {
+    set(() => ({
+      timer,
     }));
   },
 }));

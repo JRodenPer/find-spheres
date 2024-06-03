@@ -27,5 +27,5 @@ Q: Show / hide radar
 H: Show / hide help menu
 
 Developed by J. Rodenper
-https://wwww.rodenper.dev
+https://www.rodenper.dev
 jrodenper@gmail.com
