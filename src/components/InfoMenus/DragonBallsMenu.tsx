@@ -25,7 +25,8 @@ export const DragonBallsMenu: React.FC = () => {
       setDragonBalls(currentDragonBalls);
     };
     addDragonBall(lastPicked);
-  }, [dragonBalls, lastPicked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastPicked]);
 
   return (
     <div className="dragon-balls-menu">

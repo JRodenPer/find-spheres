@@ -1,5 +1,8 @@
 import { Vector2, Vector3 } from "three";
-import { VILLAGE_PER_MOUNTAIN_COUNT } from "../constants";
+import {
+  MOUNTAINS_RADIUS_BOTTOM_PERCENT,
+  VILLAGE_PER_MOUNTAIN_COUNT,
+} from "../constants";
 
 export interface RandodomInfo {
   position: Vector3;
@@ -78,17 +81,18 @@ export function generateRandomMountainsPos(
 
       // check valid position
       let isValid = true;
+      const checkPositionCurrent = isPointInsideCircle(
+        new Vector2(positions[i].position.x, positions[i].position.z),
+        positions[i].radius,
+        subPosition
+      );
       for (let k = 0; k < i; k++) {
         const centerPosCheck = positions[k].position;
-        const radiusCheck = positions[k].radius;
+        const radiusCheck =
+          positions[k].radius * MOUNTAINS_RADIUS_BOTTOM_PERCENT;
         const checkPosition = isPointInsideCircle(
           new Vector2(centerPosCheck.x, centerPosCheck.z),
           radiusCheck,
-          subPosition
-        );
-        const checkPositionCurrent = isPointInsideCircle(
-          new Vector2(positions[i].position.x, positions[i].position.z),
-          positions[i].radius,
           subPosition
         );
         if (checkPosition || !checkPositionCurrent) {
@@ -125,8 +129,6 @@ export function generateRandomMountainsPos(
       count++;
     }
   }
-
-  console.log("Random positions finished");
   return positions;
 }
 

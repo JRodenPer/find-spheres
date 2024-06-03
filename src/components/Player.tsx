@@ -18,10 +18,6 @@ export const Player = () => {
   const [setPosition] = usePlayerStore((state) => [state.setPosition]);
   const [setDirection] = usePlayerStore((state) => [state.setDirection]);
 
-  useEffect(() => {
-    console.log("El componente Player se ha renderizado");
-  });
-
   const { camera } = useThree();
 
   const [ref, api] = useSphere(() => ({
@@ -63,6 +59,7 @@ export const Player = () => {
       }
     });
     return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api.position]);
 
   const vel = useRef<Vector3>(new Vector3(0, 0, 0));
